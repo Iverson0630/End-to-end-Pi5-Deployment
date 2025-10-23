@@ -56,6 +56,11 @@ int isLogging = 0;
 int L_load_cell_torque = 0;  
 int R_load_cell_torque = 0;    
 
+/*Filter*/
+MovingAverage LTAVx(12);    
+MovingAverage RTAVx(12);     
+float f_LTAVx = 0;  
+float f_RTAVx = 0;  
 
 CAN_message_t msgR;   
 int CAN_ID = 3;  
@@ -420,8 +425,9 @@ void setup() {
     Serial.println(F("SD card init or file create failed!"));
   }
 
-  t_0 = micros();
-}
+
+  t_0 = micros();    
+}  
 
 void initial_Sig_motor() {
   // 进入控制模式
@@ -610,6 +616,7 @@ void loop()
         logger.flush();
         log_flush_count = 0;
       }
+    }
 }
 }
 

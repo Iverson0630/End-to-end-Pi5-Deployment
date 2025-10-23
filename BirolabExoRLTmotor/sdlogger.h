@@ -15,6 +15,20 @@ public:
   void   print  (const __FlashStringHelper* s) { if (file) file.print(s); }
   void   println(const __FlashStringHelper* s) { if (file) file.println(s); }
   void   printf (const char* fmt, ...);
+    // ★ 新增：数字/字符重载
+  void   print  (char c)                        { if (file) file.print(c); }
+  void   print  (int v)                         { if (file) file.print(v); }
+  void   print  (unsigned v)                    { if (file) file.print(v); }
+  void   print  (long v)                        { if (file) file.print(v); }
+  void   print  (unsigned long v)               { if (file) file.print(v); }
+  void   print  (float v, int digits=2)         { if (file) file.print(v, digits); }
+  void   print  (double v, int digits=2)        { if (file) file.print(v, digits); }
+
+  // ★ 新增：无参换行（写 CRLF，Excel 友好）
+  void   println()                              { if (file) { file.write("\r\n", 2); } }
+
+  
+  
   void   flush()                             { if (file) file.flush(); }
   bool isOpen() { return file; }  // 使用 File 的隐式 operator bool()
   const  char* filename() const              { return fname; }
