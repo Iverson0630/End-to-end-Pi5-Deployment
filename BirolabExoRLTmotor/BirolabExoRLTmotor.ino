@@ -56,11 +56,6 @@ int isLogging = 0;
 int L_load_cell_torque = 0;  
 int R_load_cell_torque = 0;    
 
-/*Filter*/
-MovingAverage LTAVx(12);    
-MovingAverage RTAVx(12);     
-float f_LTAVx = 0;  
-float f_RTAVx = 0;  
 
 CAN_message_t msgR;   
 int CAN_ID = 3;  
@@ -413,18 +408,20 @@ void setup() {
   if (logger.begin()) {
     Serial.print(F("SD Logging file: "));
     Serial.println(logger.filename());
-    logger.println(F("Time,imu_RTx,imu_LTx,RLTx_delay,torque_delay,"
-                     "tau_raw_L,tau_raw_R,S_torque_command_left,"
-                     "S_torque_command_right,M1_torque_command,"
-                     "M2_torque_command,Rescaling_gain,Flex_Assist_gain,"
-                     "Ext_Assist_gain,Assist_delay_gain"));
+    logger.println(F(
+      "Time_ms,imu_RTx,imu_LTx,imu_1_left_shaking,imu_2_right_shaking,imu_3_left_foot,imu_4_right_foot,"
+      "RLTx_delay,torque_delay,tau_raw_L,tau_raw_R,"
+      "S_torque_command_left,S_torque_command_right,M1_torque_command,M2_torque_command,Rescaling_gain,"
+      "imu_Rvel,imu_Lvel,freq_avg,"
+      "extra1,extra2,extra3,extra4,extra5"   // 预留列
+    ));
     logger.flush();
   } else {
     Serial.println(F("SD card init or file create failed!"));
   }
 
-  t_0 = micros();    
-}  
+  t_0 = micros();
+}
 
 void initial_Sig_motor() {
   // 进入控制模式
@@ -580,30 +577,39 @@ void loop()
     previous_time = current_time;
     // == 日志写入（100Hz）==
     if (logger.isOpen()) {
-      logger.printf("%lu,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f\n",
-        current_time / 1000,   // Time in ms
-        imu.RTx,
-        imu.LTx,
-        RLTx_delay[doi],        // 当前帧
-        torque_delay[doi],      // 当前帧
-        tau_raw_L,
-        tau_raw_R,
-        S_torque_command_left,
-        S_torque_command_right,
-        M1_torque_command,
-        M2_torque_command,
-        Rescaling_gain,
-        Flex_Assist_gain,
-        Ext_Assist_gain,
-        Assist_delay_gain
-      );
-      // logger.flush(); // 可每N次flush，或1s flush一次以保护SD卡寿命
-    }
-    static int log_flush_count = 0;
-    if (++log_flush_count >= 10) {
-      logger.flush();
-      log_flush_count = 0;
-    }
+      // 1) time (ms)
+      logger.print(current_time / 1000UL); logger.print(',');
+
+      // 2) floats，保留4位小数（按你原始列）
+      logger.print(imu.RTx, 4);                logger.print(',');
+      logger.print(imu.LTx, 4);                logger.print(',');
+      logger.print(imu.TX1, 4);                logger.print(',');
+      logger.print(imu.TX2, 4);                logger.print(',');
+      logger.print(imu.TX3, 4);                logger.print(',');
+      logger.print(imu.TX4, 4);                logger.print(',');
+      logger.print(0.0f, 4);        logger.print(',');
+      logger.print(0.0f, 4);      logger.print(',');
+      logger.print(0.0f, 4);              logger.print(',');
+      logger.print(0.0f, 4);              logger.print(',');
+      logger.print(0.0f, 4);  logger.print(',');
+      logger.print(0.0f, 4); logger.print(',');
+      logger.print(M1_torque_command, 4);      logger.print(',');
+      logger.print(M2_torque_command, 4);      logger.print(',');
+      logger.print(0.0f, 4);         logger.print(',');
+      logger.print(imu.RTAVx, 4);              logger.print(',');
+      logger.print(imu.LTAVx, 4);              logger.print(',');
+      logger.print(0.0f, 4);               logger.print(',');
+      logger.print(0.0f, 4);                   logger.print(',');
+      logger.print(0.0f, 4);                   logger.print(',');
+      logger.print(0.0f, 4);                   logger.print(',');
+      logger.print(0.0f, 4);                   logger.print(',');
+      logger.print(0.0f, 4);
+      logger.println();
+      static int log_flush_count = 0;
+      if (++log_flush_count >= 10) {   // 每10行 flush 一次
+        logger.flush();
+        log_flush_count = 0;
+      }
 }
 }
 

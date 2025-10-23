@@ -142,7 +142,105 @@ int Cmd_PackAndTx_Right(U8 *pDat, U8 DLen)
     Cmd_Write_Right(buf, DLen+55);
     return 0;
 }
+int Cmd_PackAndTx_1(U8 *pDat, U8 DLen)
+{
+    U8 buf[50 + 5 + CmdPacketMaxDatSizeTx] =
+        {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0x00, 0xff}; // 发送包缓存 开头50字节是前导码，用于唤醒可能处于睡眠状态的模块
 
+    if((DLen == 0) || (DLen > CmdPacketMaxDatSizeTx) || (pDat==NULL))
+    {// 非法参数
+        return -1;
+    }
+
+    buf[50] = CmdPacket_Begin; // 起始码
+    buf[51] = targetDeviceAddress; // 目前设备地址码
+    buf[52] = DLen;  // 长度
+    Memcpy(&buf[53], pDat, DLen); // 数据体
+    buf[53+DLen] = CalcSum1(&buf[51], DLen+2);// CS 从 地址码开始算到数据体结束
+    buf[54+DLen] = CmdPacket_End; // 结束码
+
+    Cmd_Write_1(buf, DLen+55);
+    return 0;
+}
+
+int Cmd_PackAndTx_2(U8 *pDat, U8 DLen)
+{
+    U8 buf[50 + 5 + CmdPacketMaxDatSizeTx] =
+        {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0x00, 0xff}; // 发送包缓存 开头50字节是前导码，用于唤醒可能处于睡眠状态的模块
+
+    if((DLen == 0) || (DLen > CmdPacketMaxDatSizeTx) || (pDat==NULL))
+    {// 非法参数
+        return -1;
+    }
+
+    buf[50] = CmdPacket_Begin; // 起始码
+    buf[51] = targetDeviceAddress; // 目前设备地址码
+    buf[52] = DLen;  // 长度
+    Memcpy(&buf[53], pDat, DLen); // 数据体
+    buf[53+DLen] = CalcSum1(&buf[51], DLen+2);// CS 从 地址码开始算到数据体结束
+    buf[54+DLen] = CmdPacket_End; // 结束码
+
+    Cmd_Write_2(buf, DLen+55);
+    return 0;
+}
+
+int Cmd_PackAndTx_3(U8 *pDat, U8 DLen)
+{
+    U8 buf[50 + 5 + CmdPacketMaxDatSizeTx] =
+        {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0x00, 0xff}; // 发送包缓存 开头50字节是前导码，用于唤醒可能处于睡眠状态的模块
+
+    if((DLen == 0) || (DLen > CmdPacketMaxDatSizeTx) || (pDat==NULL))
+    {// 非法参数
+        return -1;
+    }
+
+    buf[50] = CmdPacket_Begin; // 起始码
+    buf[51] = targetDeviceAddress; // 目前设备地址码
+    buf[52] = DLen;  // 长度
+    Memcpy(&buf[53], pDat, DLen); // 数据体
+    buf[53+DLen] = CalcSum1(&buf[51], DLen+2);// CS 从 地址码开始算到数据体结束
+    buf[54+DLen] = CmdPacket_End; // 结束码
+
+    Cmd_Write_3(buf, DLen+55);
+    return 0;
+}
+
+int Cmd_PackAndTx_4(U8 *pDat, U8 DLen)
+{
+    U8 buf[50 + 5 + CmdPacketMaxDatSizeTx] =
+        {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0x00, 0xff}; // 发送包缓存 开头50字节是前导码，用于唤醒可能处于睡眠状态的模块
+
+    if((DLen == 0) || (DLen > CmdPacketMaxDatSizeTx) || (pDat==NULL))
+    {// 非法参数
+        return -1;
+    }
+
+    buf[50] = CmdPacket_Begin; // 起始码
+    buf[51] = targetDeviceAddress; // 目前设备地址码
+    buf[52] = DLen;  // 长度
+    Memcpy(&buf[53], pDat, DLen); // 数据体
+    buf[53+DLen] = CalcSum1(&buf[51], DLen+2);// CS 从 地址码开始算到数据体结束
+    buf[54+DLen] = CmdPacket_End; // 结束码
+
+    Cmd_Write_4(buf, DLen+55);
+    return 0;
+}
 /**
  * 用于捕获数据包, 用户只需把接收到的每字节数据传入该函数即可
  * @param byte 传入接收到的每字节数据
@@ -420,6 +518,370 @@ U8 Cmd_GetPkt_Right(U8 byte)
     return 0;
 }
 
+/**
+ * 用于捕获数据包, 用户只需把接收到的每字节数据传入该函数即可
+ * @param byte 传入接收到的每字节数据
+ * @return U8 1=接收到完整数据包, 0未获取到完整数据包
+ */
+ U8 Cmd_GetPkt_1(U8 byte)   
+ {
+     static U8 CS=0; // 校验和
+     static U8 i=0;
+     static U8 RxIndex=0;
+ 
+     static U8 buf[5+CmdPacketMaxDatSizeRx]; // 接收包缓存
+     #define cmdBegin    buf[0]  // 起始码
+     #define cmdAddress  buf[1]  // 通信地址
+     #define cmdLen      buf[2]  // 长度
+     #define cmdDat     &buf[3]  // 数据体
+     #define cmdCS       buf[3+cmdLen] // 校验和
+     #define cmdEnd      buf[4+cmdLen] // 结束码
+ 
+     CS += byte; // 边收数据边计算校验码，校验码为地址码开始(包含地址码)到校验码之前的数据的和
+     switch (RxIndex)
+     {
+     case 0: // 起始码
+         if (byte == CmdPacket_Begin)
+         {
+             i = 0;
+             buf[i++] = CmdPacket_Begin;
+             CS = 0; // 下个字节开始计算校验码
+             RxIndex = 1;
+         }
+         break;
+     case 1: // 数据体的地址码
+         buf[i++] = byte;
+         if (byte == 255)
+         { // 255是广播地址，模块作为从机，它的地址不可会出现255
+             RxIndex = 0;
+             break;
+         }
+         RxIndex++;
+         break;
+     case 2: // 数据体的长度
+         buf[i++] = byte;
+         if ((byte > CmdPacketMaxDatSizeRx) || (byte == 0))
+         { // 长度无效
+             RxIndex = 0;
+             break;
+         }
+         RxIndex++;
+         break;
+     case 3: // 获取数据体的数据
+         buf[i++] = byte;
+         if (i >= cmdLen+3)
+         { // 已收完数据体
+             RxIndex++;
+         }
+         break;
+     case 4: // 对比 效验码
+         CS -= byte;
+         if (CS == byte)
+         {// 校验正确
+             buf[i++] = byte;
+             RxIndex++;
+         }
+         else
+         {// 校验失败
+             RxIndex = 0;
+         }
+         break;
+     case 5: // 结束码
+         RxIndex = 0;
+         if (byte == CmdPacket_End)
+         {// 捕获到完整包
+             buf[i++] = byte;
+ 
+             if ((targetDeviceAddress == cmdAddress) || (targetDeviceAddress == 255))
+             {// 地址匹配，是目标设备发来的数据 才处理
+                 Dbp_U8_buf("rx: ", "\r\n",
+                            "%02X ",
+                            buf, i);
+                 Cmd_RxUnpack_1(&buf[3], i-5);   // 处理数据包的数据体 
+                 return 1; 
+             }
+         }
+         break;
+     default:
+         RxIndex = 0;
+         break;
+     }
+ 
+     return 0;
+ }
+ /**
+ * 用于捕获数据包, 用户只需把接收到的每字节数据传入该函数即可
+ * @param byte 传入接收到的每字节数据
+ * @return U8 1=接收到完整数据包, 0未获取到完整数据包
+ */
+U8 Cmd_GetPkt_2(U8 byte)   
+{
+    static U8 CS=0; // 校验和
+    static U8 i=0;
+    static U8 RxIndex=0;
+
+    static U8 buf[5+CmdPacketMaxDatSizeRx]; // 接收包缓存
+    #define cmdBegin    buf[0]  // 起始码
+    #define cmdAddress  buf[1]  // 通信地址
+    #define cmdLen      buf[2]  // 长度
+    #define cmdDat     &buf[3]  // 数据体
+    #define cmdCS       buf[3+cmdLen] // 校验和
+    #define cmdEnd      buf[4+cmdLen] // 结束码
+
+    CS += byte; // 边收数据边计算校验码，校验码为地址码开始(包含地址码)到校验码之前的数据的和
+    switch (RxIndex)
+    {
+    case 0: // 起始码
+        if (byte == CmdPacket_Begin)
+        {
+            i = 0;
+            buf[i++] = CmdPacket_Begin;
+            CS = 0; // 下个字节开始计算校验码
+            RxIndex = 1;
+        }
+        break;
+    case 1: // 数据体的地址码
+        buf[i++] = byte;
+        if (byte == 255)
+        { // 255是广播地址，模块作为从机，它的地址不可会出现255
+            RxIndex = 0;
+            break;
+        }
+        RxIndex++;
+        break;
+    case 2: // 数据体的长度
+        buf[i++] = byte;
+        if ((byte > CmdPacketMaxDatSizeRx) || (byte == 0))
+        { // 长度无效
+            RxIndex = 0;
+            break;
+        }
+        RxIndex++;
+        break;
+    case 3: // 获取数据体的数据
+        buf[i++] = byte;
+        if (i >= cmdLen+3)
+        { // 已收完数据体
+            RxIndex++;
+        }
+        break;
+    case 4: // 对比 效验码
+        CS -= byte;
+        if (CS == byte)
+        {// 校验正确
+            buf[i++] = byte;
+            RxIndex++;
+        }
+        else
+        {// 校验失败
+            RxIndex = 0;
+        }
+        break;
+    case 5: // 结束码
+        RxIndex = 0;
+        if (byte == CmdPacket_End)
+        {// 捕获到完整包
+            buf[i++] = byte;
+
+            if ((targetDeviceAddress == cmdAddress) || (targetDeviceAddress == 255))
+            {// 地址匹配，是目标设备发来的数据 才处理
+                Dbp_U8_buf("rx: ", "\r\n",
+                           "%02X ",
+                           buf, i);
+                Cmd_RxUnpack_2(&buf[3], i-5);   // 处理数据包的数据体 
+                return 1; 
+            }
+        }
+        break;
+    default:
+        RxIndex = 0;
+        break;
+    }
+
+    return 0;
+}
+/**
+ * 用于捕获数据包, 用户只需把接收到的每字节数据传入该函数即可
+ * @param byte 传入接收到的每字节数据
+ * @return U8 1=接收到完整数据包, 0未获取到完整数据包
+ */
+ U8 Cmd_GetPkt_3(U8 byte)   
+ {
+     static U8 CS=0; // 校验和
+     static U8 i=0;
+     static U8 RxIndex=0;
+ 
+     static U8 buf[5+CmdPacketMaxDatSizeRx]; // 接收包缓存
+     #define cmdBegin    buf[0]  // 起始码
+     #define cmdAddress  buf[1]  // 通信地址
+     #define cmdLen      buf[2]  // 长度
+     #define cmdDat     &buf[3]  // 数据体
+     #define cmdCS       buf[3+cmdLen] // 校验和
+     #define cmdEnd      buf[4+cmdLen] // 结束码
+ 
+     CS += byte; // 边收数据边计算校验码，校验码为地址码开始(包含地址码)到校验码之前的数据的和
+     switch (RxIndex)
+     {
+     case 0: // 起始码
+         if (byte == CmdPacket_Begin)
+         {
+             i = 0;
+             buf[i++] = CmdPacket_Begin;
+             CS = 0; // 下个字节开始计算校验码
+             RxIndex = 1;
+         }
+         break;
+     case 1: // 数据体的地址码
+         buf[i++] = byte;
+         if (byte == 255)
+         { // 255是广播地址，模块作为从机，它的地址不可会出现255
+             RxIndex = 0;
+             break;
+         }
+         RxIndex++;
+         break;
+     case 2: // 数据体的长度
+         buf[i++] = byte;
+         if ((byte > CmdPacketMaxDatSizeRx) || (byte == 0))
+         { // 长度无效
+             RxIndex = 0;
+             break;
+         }
+         RxIndex++;
+         break;
+     case 3: // 获取数据体的数据
+         buf[i++] = byte;
+         if (i >= cmdLen+3)
+         { // 已收完数据体
+             RxIndex++;
+         }
+         break;
+     case 4: // 对比 效验码
+         CS -= byte;
+         if (CS == byte)
+         {// 校验正确
+             buf[i++] = byte;
+             RxIndex++;
+         }
+         else
+         {// 校验失败
+             RxIndex = 0;
+         }
+         break;
+     case 5: // 结束码
+         RxIndex = 0;
+         if (byte == CmdPacket_End)
+         {// 捕获到完整包
+             buf[i++] = byte;
+ 
+             if ((targetDeviceAddress == cmdAddress) || (targetDeviceAddress == 255))
+             {// 地址匹配，是目标设备发来的数据 才处理
+                 Dbp_U8_buf("rx: ", "\r\n",
+                            "%02X ",
+                            buf, i);
+                 Cmd_RxUnpack_3(&buf[3], i-5);   // 处理数据包的数据体 
+                 return 1; 
+             }
+         }
+         break;
+     default:
+         RxIndex = 0;
+         break;
+     }
+ 
+     return 0;
+ }
+ /**
+ * 用于捕获数据包, 用户只需把接收到的每字节数据传入该函数即可
+ * @param byte 传入接收到的每字节数据
+ * @return U8 1=接收到完整数据包, 0未获取到完整数据包
+ */
+U8 Cmd_GetPkt_4(U8 byte)   
+{
+    static U8 CS=0; // 校验和
+    static U8 i=0;
+    static U8 RxIndex=0;
+
+    static U8 buf[5+CmdPacketMaxDatSizeRx]; // 接收包缓存
+    #define cmdBegin    buf[0]  // 起始码
+    #define cmdAddress  buf[1]  // 通信地址
+    #define cmdLen      buf[2]  // 长度
+    #define cmdDat     &buf[3]  // 数据体
+    #define cmdCS       buf[3+cmdLen] // 校验和
+    #define cmdEnd      buf[4+cmdLen] // 结束码
+
+    CS += byte; // 边收数据边计算校验码，校验码为地址码开始(包含地址码)到校验码之前的数据的和
+    switch (RxIndex)
+    {
+    case 0: // 起始码
+        if (byte == CmdPacket_Begin)
+        {
+            i = 0;
+            buf[i++] = CmdPacket_Begin;
+            CS = 0; // 下个字节开始计算校验码
+            RxIndex = 1;
+        }
+        break;
+    case 1: // 数据体的地址码
+        buf[i++] = byte;
+        if (byte == 255)
+        { // 255是广播地址，模块作为从机，它的地址不可会出现255
+            RxIndex = 0;
+            break;
+        }
+        RxIndex++;
+        break;
+    case 2: // 数据体的长度
+        buf[i++] = byte;
+        if ((byte > CmdPacketMaxDatSizeRx) || (byte == 0))
+        { // 长度无效
+            RxIndex = 0;
+            break;
+        }
+        RxIndex++;
+        break;
+    case 3: // 获取数据体的数据
+        buf[i++] = byte;
+        if (i >= cmdLen+3)
+        { // 已收完数据体
+            RxIndex++;
+        }
+        break;
+    case 4: // 对比 效验码
+        CS -= byte;
+        if (CS == byte)
+        {// 校验正确
+            buf[i++] = byte;
+            RxIndex++;
+        }
+        else
+        {// 校验失败
+            RxIndex = 0;
+        }
+        break;
+    case 5: // 结束码
+        RxIndex = 0;
+        if (byte == CmdPacket_End)
+        {// 捕获到完整包
+            buf[i++] = byte;
+
+            if ((targetDeviceAddress == cmdAddress) || (targetDeviceAddress == 255))
+            {// 地址匹配，是目标设备发来的数据 才处理
+                Dbp_U8_buf("rx: ", "\r\n",
+                           "%02X ",
+                           buf, i);
+                Cmd_RxUnpack_4(&buf[3], i-5);   // 处理数据包的数据体 
+                return 1; 
+            }
+        }
+        break;
+    default:
+        RxIndex = 0;
+        break;
+    }
+
+    return 0;
+}
 // ================================模块的操作指令=================================
 
 // 睡眠传感器
@@ -454,6 +916,34 @@ void Cmd_03_Right(void)
     Cmd_PackAndTx_Right(buf, 1);     
 }
 
+void Cmd_03_1(void)
+{
+    U8 buf[1] = {0x03};
+    Dbp("\r\nsensor on--\r\n");
+    Cmd_PackAndTx_1(buf, 1);  
+}
+
+void Cmd_03_2(void)
+{
+    U8 buf[1] = {0x03};
+    Dbp("\r\nsensor on--\r\n");
+    Cmd_PackAndTx_2(buf, 1);  
+}
+
+void Cmd_03_3(void)
+{
+    U8 buf[1] = {0x03};
+    Dbp("\r\nsensor on--\r\n");
+    Cmd_PackAndTx_3(buf, 1);  
+}
+
+void Cmd_03_4(void)
+{
+    U8 buf[1] = {0x03};
+    Dbp("\r\nsensor on--\r\n");
+    Cmd_PackAndTx_4(buf, 1);  
+}
+
 // 关闭数据主动上报
 void Cmd_18(void)  
 {
@@ -483,6 +973,30 @@ void Cmd_19_Right(void)
     Cmd_PackAndTx_Right(buf, 1); 
 }
 
+void Cmd_19_1(void)
+{
+    U8 buf[1] = {0x19};
+    Dbp("\r\nauto report on--\r\n");
+    Cmd_PackAndTx_1(buf, 1);  
+}
+void Cmd_19_2(void)
+{
+    U8 buf[1] = {0x19};
+    Dbp("\r\nauto report on--\r\n");
+    Cmd_PackAndTx_2(buf, 1);  
+}
+void Cmd_19_3(void)
+{
+    U8 buf[1] = {0x19};
+    Dbp("\r\nauto report on--\r\n");
+    Cmd_PackAndTx_3(buf, 1);  
+}
+void Cmd_19_4(void)
+{
+    U8 buf[1] = {0x19};
+    Dbp("\r\nauto report on--\r\n");
+    Cmd_PackAndTx_4(buf, 1);  
+}
 // 获取1次订阅的功能数据
 void Cmd_11(void)
 {
@@ -559,6 +1073,74 @@ void Cmd_12_Right(U8 accStill, U8 stillToZero, U8 moveToZero,  U8 isCompassOn, U
     buf[10] = (Cmd_ReportTag>>8)&0xff;
     Dbp("\r\nset parameters--\r\n");
     Cmd_PackAndTx_Right(buf, 11);
+}
+
+void Cmd_12_1(U8 accStill, U8 stillToZero, U8 moveToZero,  U8 isCompassOn, U8 barometerFilter, U8 reportHz, U8 gyroFilter, U8 accFilter, U8 compassFilter, U16 Cmd_ReportTag)
+{
+    U8 buf[11] = {0x12};
+    buf[1] = accStill;
+    buf[2] = stillToZero;
+    buf[3] = moveToZero;
+    buf[4] = ((barometerFilter&3)<<1) | (isCompassOn&1); // bit[2-1]: BMP280的滤波等级[取值0-3]   bit[0]: 1=已开启磁场 0=已关闭磁场
+    buf[5] = reportHz;
+    buf[6] = gyroFilter;
+    buf[7] = accFilter;
+    buf[8] = compassFilter;
+    buf[9] = Cmd_ReportTag&0xff;
+    buf[10] = (Cmd_ReportTag>>8)&0xff;
+    Dbp("\r\nset parameters--\r\n");
+    Cmd_PackAndTx_1(buf, 11);
+}
+
+void Cmd_12_2(U8 accStill, U8 stillToZero, U8 moveToZero,  U8 isCompassOn, U8 barometerFilter, U8 reportHz, U8 gyroFilter, U8 accFilter, U8 compassFilter, U16 Cmd_ReportTag)
+{
+    U8 buf[11] = {0x12};
+    buf[1] = accStill;
+    buf[2] = stillToZero;
+    buf[3] = moveToZero;
+    buf[4] = ((barometerFilter&3)<<1) | (isCompassOn&1); // bit[2-1]: BMP280的滤波等级[取值0-3]   bit[0]: 1=已开启磁场 0=已关闭磁场
+    buf[5] = reportHz;
+    buf[6] = gyroFilter;
+    buf[7] = accFilter;
+    buf[8] = compassFilter;
+    buf[9] = Cmd_ReportTag&0xff;
+    buf[10] = (Cmd_ReportTag>>8)&0xff;
+    Dbp("\r\nset parameters--\r\n");
+    Cmd_PackAndTx_2(buf, 11);
+}
+
+void Cmd_12_3(U8 accStill, U8 stillToZero, U8 moveToZero,  U8 isCompassOn, U8 barometerFilter, U8 reportHz, U8 gyroFilter, U8 accFilter, U8 compassFilter, U16 Cmd_ReportTag)
+{
+    U8 buf[11] = {0x12};
+    buf[1] = accStill;
+    buf[2] = stillToZero;
+    buf[3] = moveToZero;
+    buf[4] = ((barometerFilter&3)<<1) | (isCompassOn&1); // bit[2-1]: BMP280的滤波等级[取值0-3]   bit[0]: 1=已开启磁场 0=已关闭磁场
+    buf[5] = reportHz;
+    buf[6] = gyroFilter;
+    buf[7] = accFilter;
+    buf[8] = compassFilter;
+    buf[9] = Cmd_ReportTag&0xff;
+    buf[10] = (Cmd_ReportTag>>8)&0xff;
+    Dbp("\r\nset parameters--\r\n");
+    Cmd_PackAndTx_3(buf, 11);
+}
+
+void Cmd_12_4(U8 accStill, U8 stillToZero, U8 moveToZero,  U8 isCompassOn, U8 barometerFilter, U8 reportHz, U8 gyroFilter, U8 accFilter, U8 compassFilter, U16 Cmd_ReportTag)
+{
+    U8 buf[11] = {0x12};
+    buf[1] = accStill;
+    buf[2] = stillToZero;
+    buf[3] = moveToZero;
+    buf[4] = ((barometerFilter&3)<<1) | (isCompassOn&1); // bit[2-1]: BMP280的滤波等级[取值0-3]   bit[0]: 1=已开启磁场 0=已关闭磁场
+    buf[5] = reportHz;
+    buf[6] = gyroFilter;
+    buf[7] = accFilter;
+    buf[8] = compassFilter;
+    buf[9] = Cmd_ReportTag&0xff;
+    buf[10] = (Cmd_ReportTag>>8)&0xff;
+    Dbp("\r\nset parameters--\r\n");
+    Cmd_PackAndTx_4(buf, 11);
 }
 // 惯导三维空间位置清零
 void Cmd_13(void)
@@ -1020,7 +1602,15 @@ void Cmd_51(U8 isReportCycle)
 
 F32 AngleX,AngleY,AngleZ;  // 从Cmd_RxUnpack中获取到的欧拉角数据更新到全局变量以便用户自己的业务逻辑使用, 若还需要其它数据，可参考进行增加即可
 F32 AngleXLeft,AngleYLeft,AngleZLeft,AngleXRight,AngleYRight,AngleZRight;  // 从Cmd_RxUnpack中获取到的欧拉角数据更新到全局变量以便用户自己的业务逻辑使用, 若还需要其它数据，可参考进行增加即可
+F32 AngleX1,AngleY1,AngleZ1;    // 从Cmd_RxUnpack中获取到的欧拉角数据更新到全局变量以便用户自己的业务逻辑使用, 若还需要其它数据，可参考进行增加即可
+F32 AngleX2,AngleY2,AngleZ2;    // 从Cmd_RxUnpack中获取到的欧拉角数据更新到全局变量以便用户自己的业务逻辑使用, 若还需要其它数据，可参考进行增加即可
+F32 AngleX3,AngleY3,AngleZ3;    // 从Cmd_RxUnpack中获取到的欧拉角数据更新到全局变量以便用户自己的业务逻辑使用, 若还需要其它数据，可参考进行增加即可
+F32 AngleX4,AngleY4,AngleZ4;    // 从Cmd_RxUnpack中获取到的欧拉角数据更新到全局变量以便用户自己的业务逻辑使用, 若还需要其它数据，可参考进行增加即可
+
 F32 VelXLeft,VelYLeft,VelZLeft,VelXRight,VelYRight,VelZRight;   
+F32 VelX1,VelY1,VelZ1,VelX2,VelY2,VelZ2;     
+F32 VelX3,VelY3,VelZ3,VelX4,VelY4,VelZ4; 
+
 
 U8 isNewData=0;// 1=更新了新的数据到全局变量里了  
 /**
@@ -1967,6 +2557,1258 @@ static void Cmd_RxUnpack_Right(U8 *buf, U8 DLen)
     }
 }
 
+
+static void Cmd_RxUnpack_1(U8 *buf, U8 DLen)
+{
+    U16 ctl;
+    U8 L;
+    U8 tmpU8;
+    U16 tmpU16;
+    U32 tmpU32;
+    F32 tmpX, tmpY, tmpZ, tmpAbs;
+
+    switch (buf[0])
+    {
+    case 0x02: // 传感器 已睡眠 回复
+        Dbp("\t sensor off success\r\n");
+        break;
+    case 0x03: // 传感器 已唤醒 回复
+        Dbp("\t sensor on success\r\n");
+        break;
+    case 0x32: // 磁力计 开始校准 回复
+        Dbp("\t compass calibrate begin\r\n");
+        break;
+    case 0x04: // 磁力计 结束校准 回复
+        Dbp("\t compass calibrate end\r\n");
+        break;
+    case 0x05: // z轴角 已归零 回复
+        Dbp("\t z-axes to zero success\r\n");
+        break;
+    case 0x06: // 请求 xyz世界坐标系清零 回复
+        Dbp("\t WorldXYZ-axes to zero success\r\n");
+        break;
+    case 0x07: // 加速计简单校准正在进行，将在9秒后完成  回复
+        Dbp("\t acceleration calibration, Hold still for 9 seconds\r\n");
+        break;
+    case 0x08: // 恢复默认的自身坐标系Z轴指向及恢复默认的世界坐标系  回复
+        Dbp("\t axesZ WorldXYZ-axes to zero success\r\n");
+        break;
+    case 0x10: // 模块当前的属性和状态 回复
+        Dbp("\t still limit: %u\r\n", buf[1]);   // 字节1 惯导-静止状态加速度阀值 单位dm/s?
+        Dbp("\t still to zero: %u\r\n", buf[2]); // 字节2 惯导-静止归零速度(单位mm/s) 0:不归零 255:立即归零
+        Dbp("\t move to zero: %u\r\n", buf[3]);  // 字节3 惯导-动态归零速度(单位mm/s) 0:不归零
+        Dbp("\t compass: %s\r\n", ((buf[4]>>0) & 0x01)? "on":"off" );     // 字节4 bit[0]: 1=已开启磁场 0=已关闭磁场
+        Dbp("\t barometer filter: %u\r\n", (buf[4]>>1) & 0x03);           // 字节4 bit[1-2]: 气压计的滤波等级[取值0-3],数值越大越平稳但实时性越差
+        Dbp("\t IMU: %s\r\n", ((buf[4]>>3) & 0x01)? "on":"off" );         // 字节4 bit[3]: 1=传感器已开启  0=传感器已睡眠
+        Dbp("\t auto report: %s\r\n", ((buf[4]>>4) & 0x01)? "on":"off" ); // 字节4 bit[4]: 1=已开启传感器数据主动上报 0=已关闭传感器数据主动上报
+        Dbp("\t FPS: %u\r\n", buf[5]); // 字节5 数据主动上报的传输帧率[取值0-250HZ], 0表示0.5HZ
+        Dbp("\t gyro filter: %u\r\n", buf[6]);    // 字节6 陀螺仪滤波系数[取值0-2],数值越大越平稳但实时性越差
+        Dbp("\t acc filter: %u\r\n", buf[7]);     // 字节7 加速计滤波系数[取值0-4],数值越大越平稳但实时性越差
+        Dbp("\t compass filter: %u\r\n", buf[8]); // 字节8 磁力计滤波系数[取值0-9],数值越大越平稳但实时性越差
+        Dbp("\t subscribe tag: 0x%04X\r\n", (U16)(((U16)buf[10]<<8) | buf[9])); // 字节[10-9] 功能订阅标识
+        Dbp("\t charged state: %u\r\n", buf[11]); // 字节11 充电状态指示 0=未接电源 1=充电中 2=已充满
+        Dbp("\t battery level: %u%%\r\n", buf[12]); // 字节12 当前剩余电量[0-100%]
+        Dbp("\t battery voltage: %u mv\r\n", (U16)(((U16)buf[14]<<8) | buf[13])); // 字节[14-13] 电池的当前电压mv
+        Dbp("\t Mac: %02X:%02X:%02X:%02X:%02X:%02X\r\n", buf[15],buf[16],buf[17],buf[18],buf[19],buf[20]); // 字节[15-20] MAC地址
+        Dbp("\t version: %s\r\n", &buf[21]); // 字节[21-26] 固件版本 字符串
+        Dbp("\t product model: %s\r\n", &buf[27]); // 字节[26-32] 产品型号 字符串
+        break;
+    case 0x11: // 获取订阅的功能数据 回复或主动上报
+        ctl = ((U16)buf[2] << 8) | buf[1];// 字节[2-1] 为功能订阅标识，指示当前订阅了哪些功能
+        Dbp("\t subscribe tag: 0x%04X\r\n", ctl);
+        Dbp("\t ms: %lu\r\n", (U32)(((U32)buf[6]<<24) | ((U32)buf[5]<<16) | ((U32)buf[4]<<8) | ((U32)buf[3]<<0))); // 字节[6-3] 为模块开机后的时间戳(单位ms)
+
+        L =7; // 从第7字节开始根据 订阅标识tag来解析剩下的数据
+        if ((ctl & 0x0001) != 0)
+        {// 加速度xyz 去掉了重力 使用时需*scaleAccel m/s
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\taX: %ld\r\n", (S32)(tmpX*1000.0f)); // x加速度aX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\taY: %ld\r\n", (S32)(tmpY*1000.0f)); // y加速度aY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\taZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z加速度aZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\ta_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+        }
+        if ((ctl & 0x0002) != 0)
+        {// 加速度xyz 包含了重力 使用时需*scaleAccel m/s
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tAX: %ld\r\n", (S32)(tmpX*1000.0f)); // x加速度AX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tAY: %ld\r\n", (S32)(tmpY*1000.0f)); // y加速度AY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tAZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z加速度AZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\tA_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+        }
+        if ((ctl & 0x0004) != 0)
+        {// 角速度xyz 使用时需*scaleAngleSpeed °/s
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngleSpeed; L += 2; Dbp("\tGX: %ld\r\n", (S32)(tmpX*1000.0f)); // x角速度GX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngleSpeed; L += 2; Dbp("\tGY: %ld\r\n", (S32)(tmpY*1000.0f)); // y角速度GY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngleSpeed; L += 2; Dbp("\tGZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z角速度GZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\tG_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+            VelX1 = tmpX; 
+            VelY1 = tmpY; 
+            VelZ1 = tmpZ; 
+        }
+        if ((ctl & 0x0008) != 0)
+        {// 磁场xyz 使用时需*scaleMag uT
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleMag; L += 2; Dbp("\tCX: %ld\r\n", (S32)(tmpX*1000.0f)); // x磁场CX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleMag; L += 2; Dbp("\tCY: %ld\r\n", (S32)(tmpY*1000.0f)); // y磁场CY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleMag; L += 2; Dbp("\tCZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z磁场CZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\tC_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+        }
+        if ((ctl & 0x0010) != 0)
+        {// 温度 气压 高度
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleTemperature; L += 2; Dbp("\ttemperature: %ld\r\n", (S32)(tmpX*1000.0f)); // 温度
+
+            tmpU32 = (U32)(((U32)buf[L+2] << 16) | ((U32)buf[L+1] << 8) | (U32)buf[L]);
+            tmpU32 = ((tmpU32 & 0x800000) == 0x800000)? (tmpU32 | 0xff000000) : tmpU32;// 若24位数的最高位为1则该数值为负数，需转为32位负数，直接补上ff即可
+            tmpY = (S32)tmpU32 * scaleAirPressure; L += 3; Dbp("\tairPressure: %ld\r\n", (S32)(tmpY*1000.0f)); // 气压
+
+            tmpU32 = (U32)(((U32)buf[L+2] << 16) | ((U32)buf[L+1] << 8) | (U32)buf[L]);
+            tmpU32 = ((tmpU32 & 0x800000) == 0x800000)? (tmpU32 | 0xff000000) : tmpU32;// 若24位数的最高位为1则该数值为负数，需转为32位负数，直接补上ff即可
+            tmpZ = (S32)tmpU32 * scaleHeight; L += 3; Dbp("\theight: %ld\r\n", (S32)(tmpZ*1000.0f)); // 高度
+        }
+        if ((ctl & 0x0020) != 0)
+        {// 四元素 wxyz 使用时需*scaleQuat
+            tmpAbs = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleQuat; L += 2; Dbp("\tw: %ld\r\n", (S32)(tmpAbs*1000.0f));// w
+            tmpX =   (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleQuat; L += 2; Dbp("\tx: %ld\r\n", (S32)(tmpX*1000.0f)); // x
+            tmpY =   (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleQuat; L += 2; Dbp("\ty: %ld\r\n", (S32)(tmpY*1000.0f)); // y
+            tmpZ =   (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleQuat; L += 2; Dbp("\tz: %ld\r\n", (S32)(tmpZ*1000.0f)); // z
+        }
+        if ((ctl & 0x0040) != 0)
+        {// 欧拉角xyz 使用时需*scaleAngle
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngle; L += 2; Dbp("\tangleX: %ld\r\n", (S32)(tmpX*1000.0f)); // x角度
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngle; L += 2; Dbp("\tangleY: %ld\r\n", (S32)(tmpY*1000.0f)); // y角度
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngle; L += 2; Dbp("\tangleZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z角度
+            AngleX1 = tmpX;  
+            AngleY1 = tmpY;
+            AngleZ1 = tmpZ;
+        }
+        if ((ctl & 0x0080) != 0)
+        {// xyz 空间位移 单位mm 转为 m
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) / 1000.0f; L += 2; Dbp("\toffsetX: %ld\r\n", (S32)(tmpX*1000.0f)); // x坐标
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) / 1000.0f; L += 2; Dbp("\toffsetY: %ld\r\n", (S32)(tmpY*1000.0f)); // y坐标
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) / 1000.0f; L += 2; Dbp("\toffsetZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z坐标
+        }
+        if ((ctl & 0x0100) != 0)
+        {// 活动检测数据
+            tmpU32 = (U32)(((U32)buf[L+3]<<24) | ((U32)buf[L+2]<<16) | ((U32)buf[L+1]<<8) | ((U32)buf[L]<<0)); L += 4; Dbp("\tsteps: %lu\r\n", tmpU32); // 计步数
+            tmpU8 = buf[L]; L += 1;
+            Dbp("\t walking: %s\r\n", (tmpU8 & 0x01)?  "yes" : "no"); // 是否在走路
+            Dbp("\t running: %s\r\n", (tmpU8 & 0x02)?  "yes" : "no"); // 是否在跑步
+            Dbp("\t biking: %s\r\n",  (tmpU8 & 0x04)?  "yes" : "no"); // 是否在骑车
+            Dbp("\t driving: %s\r\n", (tmpU8 & 0x08)?  "yes" : "no"); // 是否在开车
+        }
+        if ((ctl & 0x0200) != 0)
+        {// 加速度xyz 去掉了重力 使用时需*scaleAccel m/s
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tasX: %ld\r\n", (S32)(tmpX*1000.0f)); // x加速度asX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tasY: %ld\r\n", (S32)(tmpY*1000.0f)); // y加速度asY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tasZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z加速度asZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\tas_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+        }
+        if ((ctl & 0x0400) != 0)
+        {// ADC的值
+            tmpU16 = (U16)(((U16)buf[L+1]<<8) | ((U16)buf[L]<<0)); L += 2; Dbp("\tadc: %umv\r\n", tmpU16); // 单位mv
+        }
+        if ((ctl & 0x0800) != 0)
+        {// GPIO1的值
+            tmpU8 = buf[L]; L += 1;
+            Dbp("\t GPIO1  M:%X, N:%X\r\n", (tmpU8>>4)&0x0f, (tmpU8)&0x0f);
+        }
+        isNewData = 1; // 更新了新数据
+        break;
+    case 0x12: // 设置参数 回复
+        Dbp("\t set parameters success\r\n");
+        break;
+    case 0x13: // 惯导三维空间位置清零 回复
+        Dbp("\t clear INS position success\r\n");
+        break;
+    case 0x14: // 恢复出厂校准参数 回复
+        Dbp("\t Restore calibration parameters from factory mode success\r\n");
+        break;
+    case 0x15: // 保存当前校准参数为出厂校准参数 回复
+        Dbp("\t Save calibration parameters to factory mode success\r\n");
+        break;
+    case 0x16: // 计步数清零 回复
+        Dbp("\t clear steps success\r\n");
+        break;
+    case 0x17: // 加速计高精度校准 回复
+        if (buf[1] == 255)
+        {// 字节1 值255 表示采集完成，正在结束校准(设备需继续保持静止等待10秒钟)
+            Dbp("\t calibration success, please wait 10 seconds\r\n");
+        }
+        else if (buf[1] == 254)
+        {// 字节1 值254 表示陀螺仪自检失败
+            Dbp("\t calibration fail, gyro error\r\n");
+        }
+        else if (buf[1] == 253)
+        {// 字节1 值253 表示加速计自检失败
+            Dbp("\t calibration fail, accelerometer error\r\n");
+        }
+        else if (buf[1] == 252)
+        {// 字节1 值252 表示磁力计自检失败
+            Dbp("\t calibration fail, compass error\r\n");
+        }
+        else if (buf[1] == 251)
+        {// 字节1 值251 表示设备未在校准中
+            Dbp("\t calibration fail, Hasn't started\r\n");
+        }
+        else if (buf[1] != 0)
+        {// 值[1-250] 表示当前已采集的次数
+            Dbp("\t calibration, Points collected is %u\r\n", buf[1]);
+        }
+        else
+        {// 值0 表示模块已经在校准中
+            Dbp("\t calibration is running\r\n");
+        }
+        break;
+    case 0x18: // 已关闭主动上报 回复
+        Dbp("\t auto report off\r\n");
+        break;
+    case 0x19: // 已打开主动上报 回复
+        Dbp("\t auto report on\r\n");
+        break;
+    case 0x20: // 设置PCB安装方向矩阵 回复
+        Dbp("\t set PCB direction success\r\n");
+        break;
+    case 0x21: // 是请求 读取安装方向矩阵
+        Dbp_U8_buf("\t get PCB direction: 0x[", "]\r\n",
+                   "%02x ",
+                   &buf[1], 9); // 字节[1-9]     为加速计安装方向矩阵
+        Dbp_U8_buf("\t get PCB direction: 0x[", "]\r\n",
+                   "%02x ",
+                   &buf[10], 9); // 字节[10-18] 为磁力计安装方向矩阵
+        break;
+    case 0x22: // 是请求 设置蓝牙广播名称
+        Dbp("\t set BLE name success\r\n");
+        break;
+    case 0x23: // 读取蓝牙广播名称 回复
+        Dbp("\t get BLE name: %s\r\n", &buf[1]); // 字节[1-16] 为蓝牙广播名称字符串
+        break;
+    case 0x24: // 设置关机电压和充电参数 回复
+        Dbp("\t set PowerDownVoltage and charge parameters success\r\n");
+        break;
+    case 0x25: // 读取关机电压和充电参数 回复
+        Dbp("\t PowerDownVoltageFlag: %u\r\n", buf[1]); // 字节1 关机电压选择标志 0表示3.4V, 1表示2.7V
+        Dbp("\t charge_full_mV: %u\r\n", buf[2]); // 字节2 充电截止电压 0:3962mv 1:4002mv 2:4044mv 3:4086mv 4:4130mv 5:4175mv 6:4222mv 7:4270mv 8:4308mv 9:4349mv 10:4391mv
+        Dbp("\t charge_full_mA: %u ma\r\n", buf[3]); // 字节3 充电截止电流 0:2ma 1:5ma 2:7ma 3:10ma 4:15ma 5:20ma 6:25ma 7:30ma
+        Dbp("\t charge_mA: %u ma\r\n", buf[4]); // 字节3 充电电流 0:20ma 1:30ma 2:40ma 3:50ma 4:60ma 5:70ma 6:80ma 7:90ma 8:100ma 9:110ma 10:120ma 11:140ma 12:160ma 13:180ma 14:200ma 15:220ma
+        break;
+    case 0x27: // 设置用户的GPIO引脚 回复
+        Dbp("\t set gpio success\r\n");
+        break;
+    case 0x28: // 设置Z轴角度为指定值 回复
+        Dbp("\t set AngleZ success\r\n");
+        break;
+    case 0x2A: // 重启设备 回复
+        Dbp("\t will reset\r\n");
+        break;
+    case 0x2B: // 设备关机 回复
+        Dbp("\t will power off\r\n");
+        break;
+    case 0x2C: // 设置空闲关机时长 回复
+        Dbp("\t set idleToPowerOffTime success\r\n");
+        break;
+    case 0x2D: // 读取空闲关机时长 回复
+        Dbp("\t idleToPowerOffTime:%u minutes\r\n", buf[1]*10);
+        break;
+    case 0x2E: // 设置禁止蓝牙方式更改名称和充电参数标识 回复
+        Dbp("\t set FlagForDisableBleSetNameAndCahrge success\r\n");
+        break;
+    case 0x2F: // 读取禁止蓝牙方式更改名称和充电参数标识 回复
+        Dbp("\t FlagForDisableBleSetNameAndCahrge:%u\r\n", buf[1]);
+        break;
+    case 0x30: // 设置串口通信地址 回复
+        Dbp("\t set address success\r\n");
+        break;
+    case 0x31: // 读取串口通信地址 回复
+        Dbp("\t address:%u\r\n", buf[1]);
+        break;
+    case 0x33: // 设置加速计和陀螺仪量程 回复
+        Dbp("\t set accelRange and gyroRange success\r\n");
+        break;
+    case 0x34: // 读取加速计和陀螺仪量程 回复
+        Dbp("\t accelRange:%u gyroRange:%u\r\n", buf[1], buf[2]);
+        break;
+    case 0x35: // 设置陀螺仪自动校正系数 回复
+        Dbp("\t set GyroAutoVal success\r\n");
+        break;
+    case 0x36: // 读取陀螺仪自动校正系数 回复
+        Dbp("\t GyroAutoVal:%u\r\n", buf[1]);
+        break;
+    case 0x37: // 设置静止节能模式的触发时长 回复
+        Dbp("\t set EcoTime success\r\n");
+        break;
+    case 0x38: // 读取静止节能模式的触发时长 回复
+        Dbp("\t EcoTime:%u\r\n", buf[1]);
+        break;
+    case 0x40: // 设置开机后工作模式 回复
+        Dbp("\t set WorkMode success\r\n");
+        break;
+    case 0x41: // 读取开机后工作模式 回复
+        Dbp("\t WorkMode:%u\r\n", buf[1]);
+        break;		
+    case 0x42: // 设置高度为指定值 回复
+        Dbp("\t set Height success\r\n");
+        break;
+    case 0x43: // 设置自动补偿高度标识 回复
+        Dbp("\t set HeightAutoFlag success\r\n");
+        break;
+    case 0x44: // 读取自动补偿高度标识 回复
+        Dbp("\t HeightAutoFlag:%u\r\n", buf[1]);
+        break;
+    case 0x47: // 设置串口波特率 回复
+        Dbp("\t set BaudRate success\r\n");
+        break;
+    case 0x48: // 读取串口波特率 回复
+        Dbp("\t BaudRate:%u\r\n", buf[1]);
+        break;
+    case 0x50: // 是透传过来的数据 回复  把透传数据以十六进制打印出来
+        Dbp_U8_buf("DTU: ", "\r\n",
+           "%02X ",
+           &buf[1], DLen-1);
+        break;
+    case 0x51: // 设置用圈数代替欧拉角传输 回复
+        Dbp("\t set Cycle success\r\n");
+        break;
+
+    default:
+        break;
+    }
+}
+
+static void Cmd_RxUnpack_2(U8 *buf, U8 DLen)
+{
+    U16 ctl;
+    U8 L;
+    U8 tmpU8;
+    U16 tmpU16;
+    U32 tmpU32;
+    F32 tmpX, tmpY, tmpZ, tmpAbs;
+
+    switch (buf[0])
+    {
+    case 0x02: // 传感器 已睡眠 回复
+        Dbp("\t sensor off success\r\n");
+        break;
+    case 0x03: // 传感器 已唤醒 回复
+        Dbp("\t sensor on success\r\n");
+        break;
+    case 0x32: // 磁力计 开始校准 回复
+        Dbp("\t compass calibrate begin\r\n");
+        break;
+    case 0x04: // 磁力计 结束校准 回复
+        Dbp("\t compass calibrate end\r\n");
+        break;
+    case 0x05: // z轴角 已归零 回复
+        Dbp("\t z-axes to zero success\r\n");
+        break;
+    case 0x06: // 请求 xyz世界坐标系清零 回复
+        Dbp("\t WorldXYZ-axes to zero success\r\n");
+        break;
+    case 0x07: // 加速计简单校准正在进行，将在9秒后完成  回复
+        Dbp("\t acceleration calibration, Hold still for 9 seconds\r\n");
+        break;
+    case 0x08: // 恢复默认的自身坐标系Z轴指向及恢复默认的世界坐标系  回复
+        Dbp("\t axesZ WorldXYZ-axes to zero success\r\n");
+        break;
+    case 0x10: // 模块当前的属性和状态 回复
+        Dbp("\t still limit: %u\r\n", buf[1]);   // 字节1 惯导-静止状态加速度阀值 单位dm/s?
+        Dbp("\t still to zero: %u\r\n", buf[2]); // 字节2 惯导-静止归零速度(单位mm/s) 0:不归零 255:立即归零
+        Dbp("\t move to zero: %u\r\n", buf[3]);  // 字节3 惯导-动态归零速度(单位mm/s) 0:不归零
+        Dbp("\t compass: %s\r\n", ((buf[4]>>0) & 0x01)? "on":"off" );     // 字节4 bit[0]: 1=已开启磁场 0=已关闭磁场
+        Dbp("\t barometer filter: %u\r\n", (buf[4]>>1) & 0x03);           // 字节4 bit[1-2]: 气压计的滤波等级[取值0-3],数值越大越平稳但实时性越差
+        Dbp("\t IMU: %s\r\n", ((buf[4]>>3) & 0x01)? "on":"off" );         // 字节4 bit[3]: 1=传感器已开启  0=传感器已睡眠
+        Dbp("\t auto report: %s\r\n", ((buf[4]>>4) & 0x01)? "on":"off" ); // 字节4 bit[4]: 1=已开启传感器数据主动上报 0=已关闭传感器数据主动上报
+        Dbp("\t FPS: %u\r\n", buf[5]); // 字节5 数据主动上报的传输帧率[取值0-250HZ], 0表示0.5HZ
+        Dbp("\t gyro filter: %u\r\n", buf[6]);    // 字节6 陀螺仪滤波系数[取值0-2],数值越大越平稳但实时性越差
+        Dbp("\t acc filter: %u\r\n", buf[7]);     // 字节7 加速计滤波系数[取值0-4],数值越大越平稳但实时性越差
+        Dbp("\t compass filter: %u\r\n", buf[8]); // 字节8 磁力计滤波系数[取值0-9],数值越大越平稳但实时性越差
+        Dbp("\t subscribe tag: 0x%04X\r\n", (U16)(((U16)buf[10]<<8) | buf[9])); // 字节[10-9] 功能订阅标识
+        Dbp("\t charged state: %u\r\n", buf[11]); // 字节11 充电状态指示 0=未接电源 1=充电中 2=已充满
+        Dbp("\t battery level: %u%%\r\n", buf[12]); // 字节12 当前剩余电量[0-100%]
+        Dbp("\t battery voltage: %u mv\r\n", (U16)(((U16)buf[14]<<8) | buf[13])); // 字节[14-13] 电池的当前电压mv
+        Dbp("\t Mac: %02X:%02X:%02X:%02X:%02X:%02X\r\n", buf[15],buf[16],buf[17],buf[18],buf[19],buf[20]); // 字节[15-20] MAC地址
+        Dbp("\t version: %s\r\n", &buf[21]); // 字节[21-26] 固件版本 字符串
+        Dbp("\t product model: %s\r\n", &buf[27]); // 字节[26-32] 产品型号 字符串
+        break;
+    case 0x11: // 获取订阅的功能数据 回复或主动上报
+        ctl = ((U16)buf[2] << 8) | buf[1];// 字节[2-1] 为功能订阅标识，指示当前订阅了哪些功能
+        Dbp("\t subscribe tag: 0x%04X\r\n", ctl);
+        Dbp("\t ms: %lu\r\n", (U32)(((U32)buf[6]<<24) | ((U32)buf[5]<<16) | ((U32)buf[4]<<8) | ((U32)buf[3]<<0))); // 字节[6-3] 为模块开机后的时间戳(单位ms)
+
+        L =7; // 从第7字节开始根据 订阅标识tag来解析剩下的数据
+        if ((ctl & 0x0001) != 0)
+        {// 加速度xyz 去掉了重力 使用时需*scaleAccel m/s
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\taX: %ld\r\n", (S32)(tmpX*1000.0f)); // x加速度aX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\taY: %ld\r\n", (S32)(tmpY*1000.0f)); // y加速度aY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\taZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z加速度aZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\ta_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+        }
+        if ((ctl & 0x0002) != 0)
+        {// 加速度xyz 包含了重力 使用时需*scaleAccel m/s
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tAX: %ld\r\n", (S32)(tmpX*1000.0f)); // x加速度AX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tAY: %ld\r\n", (S32)(tmpY*1000.0f)); // y加速度AY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tAZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z加速度AZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\tA_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+        }
+        if ((ctl & 0x0004) != 0)
+        {// 角速度xyz 使用时需*scaleAngleSpeed °/s
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngleSpeed; L += 2; Dbp("\tGX: %ld\r\n", (S32)(tmpX*1000.0f)); // x角速度GX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngleSpeed; L += 2; Dbp("\tGY: %ld\r\n", (S32)(tmpY*1000.0f)); // y角速度GY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngleSpeed; L += 2; Dbp("\tGZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z角速度GZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\tG_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+            VelX2 = tmpX; 
+            VelY2 = tmpY; 
+            VelZ2 = tmpZ; 
+        }
+        if ((ctl & 0x0008) != 0)
+        {// 磁场xyz 使用时需*scaleMag uT
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleMag; L += 2; Dbp("\tCX: %ld\r\n", (S32)(tmpX*1000.0f)); // x磁场CX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleMag; L += 2; Dbp("\tCY: %ld\r\n", (S32)(tmpY*1000.0f)); // y磁场CY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleMag; L += 2; Dbp("\tCZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z磁场CZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\tC_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+        }
+        if ((ctl & 0x0010) != 0)
+        {// 温度 气压 高度
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleTemperature; L += 2; Dbp("\ttemperature: %ld\r\n", (S32)(tmpX*1000.0f)); // 温度
+
+            tmpU32 = (U32)(((U32)buf[L+2] << 16) | ((U32)buf[L+1] << 8) | (U32)buf[L]);
+            tmpU32 = ((tmpU32 & 0x800000) == 0x800000)? (tmpU32 | 0xff000000) : tmpU32;// 若24位数的最高位为1则该数值为负数，需转为32位负数，直接补上ff即可
+            tmpY = (S32)tmpU32 * scaleAirPressure; L += 3; Dbp("\tairPressure: %ld\r\n", (S32)(tmpY*1000.0f)); // 气压
+
+            tmpU32 = (U32)(((U32)buf[L+2] << 16) | ((U32)buf[L+1] << 8) | (U32)buf[L]);
+            tmpU32 = ((tmpU32 & 0x800000) == 0x800000)? (tmpU32 | 0xff000000) : tmpU32;// 若24位数的最高位为1则该数值为负数，需转为32位负数，直接补上ff即可
+            tmpZ = (S32)tmpU32 * scaleHeight; L += 3; Dbp("\theight: %ld\r\n", (S32)(tmpZ*1000.0f)); // 高度
+        }
+        if ((ctl & 0x0020) != 0)
+        {// 四元素 wxyz 使用时需*scaleQuat
+            tmpAbs = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleQuat; L += 2; Dbp("\tw: %ld\r\n", (S32)(tmpAbs*1000.0f));// w
+            tmpX =   (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleQuat; L += 2; Dbp("\tx: %ld\r\n", (S32)(tmpX*1000.0f)); // x
+            tmpY =   (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleQuat; L += 2; Dbp("\ty: %ld\r\n", (S32)(tmpY*1000.0f)); // y
+            tmpZ =   (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleQuat; L += 2; Dbp("\tz: %ld\r\n", (S32)(tmpZ*1000.0f)); // z
+        }
+        if ((ctl & 0x0040) != 0)
+        {// 欧拉角xyz 使用时需*scaleAngle
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngle; L += 2; Dbp("\tangleX: %ld\r\n", (S32)(tmpX*1000.0f)); // x角度
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngle; L += 2; Dbp("\tangleY: %ld\r\n", (S32)(tmpY*1000.0f)); // y角度
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngle; L += 2; Dbp("\tangleZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z角度
+            AngleX2 = tmpX;  
+            AngleY2 = tmpY;
+            AngleZ2 = tmpZ;
+        }
+        if ((ctl & 0x0080) != 0)
+        {// xyz 空间位移 单位mm 转为 m
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) / 1000.0f; L += 2; Dbp("\toffsetX: %ld\r\n", (S32)(tmpX*1000.0f)); // x坐标
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) / 1000.0f; L += 2; Dbp("\toffsetY: %ld\r\n", (S32)(tmpY*1000.0f)); // y坐标
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) / 1000.0f; L += 2; Dbp("\toffsetZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z坐标
+        }
+        if ((ctl & 0x0100) != 0)
+        {// 活动检测数据
+            tmpU32 = (U32)(((U32)buf[L+3]<<24) | ((U32)buf[L+2]<<16) | ((U32)buf[L+1]<<8) | ((U32)buf[L]<<0)); L += 4; Dbp("\tsteps: %lu\r\n", tmpU32); // 计步数
+            tmpU8 = buf[L]; L += 1;
+            Dbp("\t walking: %s\r\n", (tmpU8 & 0x01)?  "yes" : "no"); // 是否在走路
+            Dbp("\t running: %s\r\n", (tmpU8 & 0x02)?  "yes" : "no"); // 是否在跑步
+            Dbp("\t biking: %s\r\n",  (tmpU8 & 0x04)?  "yes" : "no"); // 是否在骑车
+            Dbp("\t driving: %s\r\n", (tmpU8 & 0x08)?  "yes" : "no"); // 是否在开车
+        }
+        if ((ctl & 0x0200) != 0)
+        {// 加速度xyz 去掉了重力 使用时需*scaleAccel m/s
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tasX: %ld\r\n", (S32)(tmpX*1000.0f)); // x加速度asX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tasY: %ld\r\n", (S32)(tmpY*1000.0f)); // y加速度asY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tasZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z加速度asZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\tas_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+        }
+        if ((ctl & 0x0400) != 0)
+        {// ADC的值
+            tmpU16 = (U16)(((U16)buf[L+1]<<8) | ((U16)buf[L]<<0)); L += 2; Dbp("\tadc: %umv\r\n", tmpU16); // 单位mv
+        }
+        if ((ctl & 0x0800) != 0)
+        {// GPIO1的值
+            tmpU8 = buf[L]; L += 1;
+            Dbp("\t GPIO1  M:%X, N:%X\r\n", (tmpU8>>4)&0x0f, (tmpU8)&0x0f);
+        }
+        isNewData = 1; // 更新了新数据
+        break;
+    case 0x12: // 设置参数 回复
+        Dbp("\t set parameters success\r\n");
+        break;
+    case 0x13: // 惯导三维空间位置清零 回复
+        Dbp("\t clear INS position success\r\n");
+        break;
+    case 0x14: // 恢复出厂校准参数 回复
+        Dbp("\t Restore calibration parameters from factory mode success\r\n");
+        break;
+    case 0x15: // 保存当前校准参数为出厂校准参数 回复
+        Dbp("\t Save calibration parameters to factory mode success\r\n");
+        break;
+    case 0x16: // 计步数清零 回复
+        Dbp("\t clear steps success\r\n");
+        break;
+    case 0x17: // 加速计高精度校准 回复
+        if (buf[1] == 255)
+        {// 字节1 值255 表示采集完成，正在结束校准(设备需继续保持静止等待10秒钟)
+            Dbp("\t calibration success, please wait 10 seconds\r\n");
+        }
+        else if (buf[1] == 254)
+        {// 字节1 值254 表示陀螺仪自检失败
+            Dbp("\t calibration fail, gyro error\r\n");
+        }
+        else if (buf[1] == 253)
+        {// 字节1 值253 表示加速计自检失败
+            Dbp("\t calibration fail, accelerometer error\r\n");
+        }
+        else if (buf[1] == 252)
+        {// 字节1 值252 表示磁力计自检失败
+            Dbp("\t calibration fail, compass error\r\n");
+        }
+        else if (buf[1] == 251)
+        {// 字节1 值251 表示设备未在校准中
+            Dbp("\t calibration fail, Hasn't started\r\n");
+        }
+        else if (buf[1] != 0)
+        {// 值[1-250] 表示当前已采集的次数
+            Dbp("\t calibration, Points collected is %u\r\n", buf[1]);
+        }
+        else
+        {// 值0 表示模块已经在校准中
+            Dbp("\t calibration is running\r\n");
+        }
+        break;
+    case 0x18: // 已关闭主动上报 回复
+        Dbp("\t auto report off\r\n");
+        break;
+    case 0x19: // 已打开主动上报 回复
+        Dbp("\t auto report on\r\n");
+        break;
+    case 0x20: // 设置PCB安装方向矩阵 回复
+        Dbp("\t set PCB direction success\r\n");
+        break;
+    case 0x21: // 是请求 读取安装方向矩阵
+        Dbp_U8_buf("\t get PCB direction: 0x[", "]\r\n",
+                   "%02x ",
+                   &buf[1], 9); // 字节[1-9]     为加速计安装方向矩阵
+        Dbp_U8_buf("\t get PCB direction: 0x[", "]\r\n",
+                   "%02x ",
+                   &buf[10], 9); // 字节[10-18] 为磁力计安装方向矩阵
+        break;
+    case 0x22: // 是请求 设置蓝牙广播名称
+        Dbp("\t set BLE name success\r\n");
+        break;
+    case 0x23: // 读取蓝牙广播名称 回复
+        Dbp("\t get BLE name: %s\r\n", &buf[1]); // 字节[1-16] 为蓝牙广播名称字符串
+        break;
+    case 0x24: // 设置关机电压和充电参数 回复
+        Dbp("\t set PowerDownVoltage and charge parameters success\r\n");
+        break;
+    case 0x25: // 读取关机电压和充电参数 回复
+        Dbp("\t PowerDownVoltageFlag: %u\r\n", buf[1]); // 字节1 关机电压选择标志 0表示3.4V, 1表示2.7V
+        Dbp("\t charge_full_mV: %u\r\n", buf[2]); // 字节2 充电截止电压 0:3962mv 1:4002mv 2:4044mv 3:4086mv 4:4130mv 5:4175mv 6:4222mv 7:4270mv 8:4308mv 9:4349mv 10:4391mv
+        Dbp("\t charge_full_mA: %u ma\r\n", buf[3]); // 字节3 充电截止电流 0:2ma 1:5ma 2:7ma 3:10ma 4:15ma 5:20ma 6:25ma 7:30ma
+        Dbp("\t charge_mA: %u ma\r\n", buf[4]); // 字节3 充电电流 0:20ma 1:30ma 2:40ma 3:50ma 4:60ma 5:70ma 6:80ma 7:90ma 8:100ma 9:110ma 10:120ma 11:140ma 12:160ma 13:180ma 14:200ma 15:220ma
+        break;
+    case 0x27: // 设置用户的GPIO引脚 回复
+        Dbp("\t set gpio success\r\n");
+        break;
+    case 0x28: // 设置Z轴角度为指定值 回复
+        Dbp("\t set AngleZ success\r\n");
+        break;
+    case 0x2A: // 重启设备 回复
+        Dbp("\t will reset\r\n");
+        break;
+    case 0x2B: // 设备关机 回复
+        Dbp("\t will power off\r\n");
+        break;
+    case 0x2C: // 设置空闲关机时长 回复
+        Dbp("\t set idleToPowerOffTime success\r\n");
+        break;
+    case 0x2D: // 读取空闲关机时长 回复
+        Dbp("\t idleToPowerOffTime:%u minutes\r\n", buf[1]*10);
+        break;
+    case 0x2E: // 设置禁止蓝牙方式更改名称和充电参数标识 回复
+        Dbp("\t set FlagForDisableBleSetNameAndCahrge success\r\n");
+        break;
+    case 0x2F: // 读取禁止蓝牙方式更改名称和充电参数标识 回复
+        Dbp("\t FlagForDisableBleSetNameAndCahrge:%u\r\n", buf[1]);
+        break;
+    case 0x30: // 设置串口通信地址 回复
+        Dbp("\t set address success\r\n");
+        break;
+    case 0x31: // 读取串口通信地址 回复
+        Dbp("\t address:%u\r\n", buf[1]);
+        break;
+    case 0x33: // 设置加速计和陀螺仪量程 回复
+        Dbp("\t set accelRange and gyroRange success\r\n");
+        break;
+    case 0x34: // 读取加速计和陀螺仪量程 回复
+        Dbp("\t accelRange:%u gyroRange:%u\r\n", buf[1], buf[2]);
+        break;
+    case 0x35: // 设置陀螺仪自动校正系数 回复
+        Dbp("\t set GyroAutoVal success\r\n");
+        break;
+    case 0x36: // 读取陀螺仪自动校正系数 回复
+        Dbp("\t GyroAutoVal:%u\r\n", buf[1]);
+        break;
+    case 0x37: // 设置静止节能模式的触发时长 回复
+        Dbp("\t set EcoTime success\r\n");
+        break;
+    case 0x38: // 读取静止节能模式的触发时长 回复
+        Dbp("\t EcoTime:%u\r\n", buf[1]);
+        break;
+    case 0x40: // 设置开机后工作模式 回复
+        Dbp("\t set WorkMode success\r\n");
+        break;
+    case 0x41: // 读取开机后工作模式 回复
+        Dbp("\t WorkMode:%u\r\n", buf[1]);
+        break;		
+    case 0x42: // 设置高度为指定值 回复
+        Dbp("\t set Height success\r\n");
+        break;
+    case 0x43: // 设置自动补偿高度标识 回复
+        Dbp("\t set HeightAutoFlag success\r\n");
+        break;
+    case 0x44: // 读取自动补偿高度标识 回复
+        Dbp("\t HeightAutoFlag:%u\r\n", buf[1]);
+        break;
+    case 0x47: // 设置串口波特率 回复
+        Dbp("\t set BaudRate success\r\n");
+        break;
+    case 0x48: // 读取串口波特率 回复
+        Dbp("\t BaudRate:%u\r\n", buf[1]);
+        break;
+    case 0x50: // 是透传过来的数据 回复  把透传数据以十六进制打印出来
+        Dbp_U8_buf("DTU: ", "\r\n",
+           "%02X ",
+           &buf[1], DLen-1);
+        break;
+    case 0x51: // 设置用圈数代替欧拉角传输 回复
+        Dbp("\t set Cycle success\r\n");
+        break;
+
+    default:
+        break;
+    }
+}
+
+static void Cmd_RxUnpack_3(U8 *buf, U8 DLen)
+{
+    U16 ctl;
+    U8 L;
+    U8 tmpU8;
+    U16 tmpU16;
+    U32 tmpU32;
+    F32 tmpX, tmpY, tmpZ, tmpAbs;
+
+    switch (buf[0])
+    {
+    case 0x02: // 传感器 已睡眠 回复
+        Dbp("\t sensor off success\r\n");
+        break;
+    case 0x03: // 传感器 已唤醒 回复
+        Dbp("\t sensor on success\r\n");
+        break;
+    case 0x32: // 磁力计 开始校准 回复
+        Dbp("\t compass calibrate begin\r\n");
+        break;
+    case 0x04: // 磁力计 结束校准 回复
+        Dbp("\t compass calibrate end\r\n");
+        break;
+    case 0x05: // z轴角 已归零 回复
+        Dbp("\t z-axes to zero success\r\n");
+        break;
+    case 0x06: // 请求 xyz世界坐标系清零 回复
+        Dbp("\t WorldXYZ-axes to zero success\r\n");
+        break;
+    case 0x07: // 加速计简单校准正在进行，将在9秒后完成  回复
+        Dbp("\t acceleration calibration, Hold still for 9 seconds\r\n");
+        break;
+    case 0x08: // 恢复默认的自身坐标系Z轴指向及恢复默认的世界坐标系  回复
+        Dbp("\t axesZ WorldXYZ-axes to zero success\r\n");
+        break;
+    case 0x10: // 模块当前的属性和状态 回复
+        Dbp("\t still limit: %u\r\n", buf[1]);   // 字节1 惯导-静止状态加速度阀值 单位dm/s?
+        Dbp("\t still to zero: %u\r\n", buf[2]); // 字节2 惯导-静止归零速度(单位mm/s) 0:不归零 255:立即归零
+        Dbp("\t move to zero: %u\r\n", buf[3]);  // 字节3 惯导-动态归零速度(单位mm/s) 0:不归零
+        Dbp("\t compass: %s\r\n", ((buf[4]>>0) & 0x01)? "on":"off" );     // 字节4 bit[0]: 1=已开启磁场 0=已关闭磁场
+        Dbp("\t barometer filter: %u\r\n", (buf[4]>>1) & 0x03);           // 字节4 bit[1-2]: 气压计的滤波等级[取值0-3],数值越大越平稳但实时性越差
+        Dbp("\t IMU: %s\r\n", ((buf[4]>>3) & 0x01)? "on":"off" );         // 字节4 bit[3]: 1=传感器已开启  0=传感器已睡眠
+        Dbp("\t auto report: %s\r\n", ((buf[4]>>4) & 0x01)? "on":"off" ); // 字节4 bit[4]: 1=已开启传感器数据主动上报 0=已关闭传感器数据主动上报
+        Dbp("\t FPS: %u\r\n", buf[5]); // 字节5 数据主动上报的传输帧率[取值0-250HZ], 0表示0.5HZ
+        Dbp("\t gyro filter: %u\r\n", buf[6]);    // 字节6 陀螺仪滤波系数[取值0-2],数值越大越平稳但实时性越差
+        Dbp("\t acc filter: %u\r\n", buf[7]);     // 字节7 加速计滤波系数[取值0-4],数值越大越平稳但实时性越差
+        Dbp("\t compass filter: %u\r\n", buf[8]); // 字节8 磁力计滤波系数[取值0-9],数值越大越平稳但实时性越差
+        Dbp("\t subscribe tag: 0x%04X\r\n", (U16)(((U16)buf[10]<<8) | buf[9])); // 字节[10-9] 功能订阅标识
+        Dbp("\t charged state: %u\r\n", buf[11]); // 字节11 充电状态指示 0=未接电源 1=充电中 2=已充满
+        Dbp("\t battery level: %u%%\r\n", buf[12]); // 字节12 当前剩余电量[0-100%]
+        Dbp("\t battery voltage: %u mv\r\n", (U16)(((U16)buf[14]<<8) | buf[13])); // 字节[14-13] 电池的当前电压mv
+        Dbp("\t Mac: %02X:%02X:%02X:%02X:%02X:%02X\r\n", buf[15],buf[16],buf[17],buf[18],buf[19],buf[20]); // 字节[15-20] MAC地址
+        Dbp("\t version: %s\r\n", &buf[21]); // 字节[21-26] 固件版本 字符串
+        Dbp("\t product model: %s\r\n", &buf[27]); // 字节[26-32] 产品型号 字符串
+        break;
+    case 0x11: // 获取订阅的功能数据 回复或主动上报
+        ctl = ((U16)buf[2] << 8) | buf[1];// 字节[2-1] 为功能订阅标识，指示当前订阅了哪些功能
+        Dbp("\t subscribe tag: 0x%04X\r\n", ctl);
+        Dbp("\t ms: %lu\r\n", (U32)(((U32)buf[6]<<24) | ((U32)buf[5]<<16) | ((U32)buf[4]<<8) | ((U32)buf[3]<<0))); // 字节[6-3] 为模块开机后的时间戳(单位ms)
+
+        L =7; // 从第7字节开始根据 订阅标识tag来解析剩下的数据
+        if ((ctl & 0x0001) != 0)
+        {// 加速度xyz 去掉了重力 使用时需*scaleAccel m/s
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\taX: %ld\r\n", (S32)(tmpX*1000.0f)); // x加速度aX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\taY: %ld\r\n", (S32)(tmpY*1000.0f)); // y加速度aY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\taZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z加速度aZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\ta_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+        }
+        if ((ctl & 0x0002) != 0)
+        {// 加速度xyz 包含了重力 使用时需*scaleAccel m/s
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tAX: %ld\r\n", (S32)(tmpX*1000.0f)); // x加速度AX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tAY: %ld\r\n", (S32)(tmpY*1000.0f)); // y加速度AY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tAZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z加速度AZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\tA_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+        }
+        if ((ctl & 0x0004) != 0)
+        {// 角速度xyz 使用时需*scaleAngleSpeed °/s
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngleSpeed; L += 2; Dbp("\tGX: %ld\r\n", (S32)(tmpX*1000.0f)); // x角速度GX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngleSpeed; L += 2; Dbp("\tGY: %ld\r\n", (S32)(tmpY*1000.0f)); // y角速度GY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngleSpeed; L += 2; Dbp("\tGZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z角速度GZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\tG_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+            VelX3 = tmpX; 
+            VelY3 = tmpY; 
+            VelZ3 = tmpZ; 
+        }
+        if ((ctl & 0x0008) != 0)
+        {// 磁场xyz 使用时需*scaleMag uT
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleMag; L += 2; Dbp("\tCX: %ld\r\n", (S32)(tmpX*1000.0f)); // x磁场CX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleMag; L += 2; Dbp("\tCY: %ld\r\n", (S32)(tmpY*1000.0f)); // y磁场CY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleMag; L += 2; Dbp("\tCZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z磁场CZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\tC_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+        }
+        if ((ctl & 0x0010) != 0)
+        {// 温度 气压 高度
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleTemperature; L += 2; Dbp("\ttemperature: %ld\r\n", (S32)(tmpX*1000.0f)); // 温度
+
+            tmpU32 = (U32)(((U32)buf[L+2] << 16) | ((U32)buf[L+1] << 8) | (U32)buf[L]);
+            tmpU32 = ((tmpU32 & 0x800000) == 0x800000)? (tmpU32 | 0xff000000) : tmpU32;// 若24位数的最高位为1则该数值为负数，需转为32位负数，直接补上ff即可
+            tmpY = (S32)tmpU32 * scaleAirPressure; L += 3; Dbp("\tairPressure: %ld\r\n", (S32)(tmpY*1000.0f)); // 气压
+
+            tmpU32 = (U32)(((U32)buf[L+2] << 16) | ((U32)buf[L+1] << 8) | (U32)buf[L]);
+            tmpU32 = ((tmpU32 & 0x800000) == 0x800000)? (tmpU32 | 0xff000000) : tmpU32;// 若24位数的最高位为1则该数值为负数，需转为32位负数，直接补上ff即可
+            tmpZ = (S32)tmpU32 * scaleHeight; L += 3; Dbp("\theight: %ld\r\n", (S32)(tmpZ*1000.0f)); // 高度
+        }
+        if ((ctl & 0x0020) != 0)
+        {// 四元素 wxyz 使用时需*scaleQuat
+            tmpAbs = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleQuat; L += 2; Dbp("\tw: %ld\r\n", (S32)(tmpAbs*1000.0f));// w
+            tmpX =   (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleQuat; L += 2; Dbp("\tx: %ld\r\n", (S32)(tmpX*1000.0f)); // x
+            tmpY =   (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleQuat; L += 2; Dbp("\ty: %ld\r\n", (S32)(tmpY*1000.0f)); // y
+            tmpZ =   (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleQuat; L += 2; Dbp("\tz: %ld\r\n", (S32)(tmpZ*1000.0f)); // z
+        }
+        if ((ctl & 0x0040) != 0)
+        {// 欧拉角xyz 使用时需*scaleAngle
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngle; L += 2; Dbp("\tangleX: %ld\r\n", (S32)(tmpX*1000.0f)); // x角度
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngle; L += 2; Dbp("\tangleY: %ld\r\n", (S32)(tmpY*1000.0f)); // y角度
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngle; L += 2; Dbp("\tangleZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z角度
+            AngleX3 = tmpX;  
+            AngleY3 = tmpY;
+            AngleZ3 = tmpZ;
+        }
+        if ((ctl & 0x0080) != 0)
+        {// xyz 空间位移 单位mm 转为 m
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) / 1000.0f; L += 2; Dbp("\toffsetX: %ld\r\n", (S32)(tmpX*1000.0f)); // x坐标
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) / 1000.0f; L += 2; Dbp("\toffsetY: %ld\r\n", (S32)(tmpY*1000.0f)); // y坐标
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) / 1000.0f; L += 2; Dbp("\toffsetZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z坐标
+        }
+        if ((ctl & 0x0100) != 0)
+        {// 活动检测数据
+            tmpU32 = (U32)(((U32)buf[L+3]<<24) | ((U32)buf[L+2]<<16) | ((U32)buf[L+1]<<8) | ((U32)buf[L]<<0)); L += 4; Dbp("\tsteps: %lu\r\n", tmpU32); // 计步数
+            tmpU8 = buf[L]; L += 1;
+            Dbp("\t walking: %s\r\n", (tmpU8 & 0x01)?  "yes" : "no"); // 是否在走路
+            Dbp("\t running: %s\r\n", (tmpU8 & 0x02)?  "yes" : "no"); // 是否在跑步
+            Dbp("\t biking: %s\r\n",  (tmpU8 & 0x04)?  "yes" : "no"); // 是否在骑车
+            Dbp("\t driving: %s\r\n", (tmpU8 & 0x08)?  "yes" : "no"); // 是否在开车
+        }
+        if ((ctl & 0x0200) != 0)
+        {// 加速度xyz 去掉了重力 使用时需*scaleAccel m/s
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tasX: %ld\r\n", (S32)(tmpX*1000.0f)); // x加速度asX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tasY: %ld\r\n", (S32)(tmpY*1000.0f)); // y加速度asY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tasZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z加速度asZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\tas_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+        }
+        if ((ctl & 0x0400) != 0)
+        {// ADC的值
+            tmpU16 = (U16)(((U16)buf[L+1]<<8) | ((U16)buf[L]<<0)); L += 2; Dbp("\tadc: %umv\r\n", tmpU16); // 单位mv
+        }
+        if ((ctl & 0x0800) != 0)
+        {// GPIO1的值
+            tmpU8 = buf[L]; L += 1;
+            Dbp("\t GPIO1  M:%X, N:%X\r\n", (tmpU8>>4)&0x0f, (tmpU8)&0x0f);
+        }
+        isNewData = 1; // 更新了新数据
+        break;
+    case 0x12: // 设置参数 回复
+        Dbp("\t set parameters success\r\n");
+        break;
+    case 0x13: // 惯导三维空间位置清零 回复
+        Dbp("\t clear INS position success\r\n");
+        break;
+    case 0x14: // 恢复出厂校准参数 回复
+        Dbp("\t Restore calibration parameters from factory mode success\r\n");
+        break;
+    case 0x15: // 保存当前校准参数为出厂校准参数 回复
+        Dbp("\t Save calibration parameters to factory mode success\r\n");
+        break;
+    case 0x16: // 计步数清零 回复
+        Dbp("\t clear steps success\r\n");
+        break;
+    case 0x17: // 加速计高精度校准 回复
+        if (buf[1] == 255)
+        {// 字节1 值255 表示采集完成，正在结束校准(设备需继续保持静止等待10秒钟)
+            Dbp("\t calibration success, please wait 10 seconds\r\n");
+        }
+        else if (buf[1] == 254)
+        {// 字节1 值254 表示陀螺仪自检失败
+            Dbp("\t calibration fail, gyro error\r\n");
+        }
+        else if (buf[1] == 253)
+        {// 字节1 值253 表示加速计自检失败
+            Dbp("\t calibration fail, accelerometer error\r\n");
+        }
+        else if (buf[1] == 252)
+        {// 字节1 值252 表示磁力计自检失败
+            Dbp("\t calibration fail, compass error\r\n");
+        }
+        else if (buf[1] == 251)
+        {// 字节1 值251 表示设备未在校准中
+            Dbp("\t calibration fail, Hasn't started\r\n");
+        }
+        else if (buf[1] != 0)
+        {// 值[1-250] 表示当前已采集的次数
+            Dbp("\t calibration, Points collected is %u\r\n", buf[1]);
+        }
+        else
+        {// 值0 表示模块已经在校准中
+            Dbp("\t calibration is running\r\n");
+        }
+        break;
+    case 0x18: // 已关闭主动上报 回复
+        Dbp("\t auto report off\r\n");
+        break;
+    case 0x19: // 已打开主动上报 回复
+        Dbp("\t auto report on\r\n");
+        break;
+    case 0x20: // 设置PCB安装方向矩阵 回复
+        Dbp("\t set PCB direction success\r\n");
+        break;
+    case 0x21: // 是请求 读取安装方向矩阵
+        Dbp_U8_buf("\t get PCB direction: 0x[", "]\r\n",
+                   "%02x ",
+                   &buf[1], 9); // 字节[1-9]     为加速计安装方向矩阵
+        Dbp_U8_buf("\t get PCB direction: 0x[", "]\r\n",
+                   "%02x ",
+                   &buf[10], 9); // 字节[10-18] 为磁力计安装方向矩阵
+        break;
+    case 0x22: // 是请求 设置蓝牙广播名称
+        Dbp("\t set BLE name success\r\n");
+        break;
+    case 0x23: // 读取蓝牙广播名称 回复
+        Dbp("\t get BLE name: %s\r\n", &buf[1]); // 字节[1-16] 为蓝牙广播名称字符串
+        break;
+    case 0x24: // 设置关机电压和充电参数 回复
+        Dbp("\t set PowerDownVoltage and charge parameters success\r\n");
+        break;
+    case 0x25: // 读取关机电压和充电参数 回复
+        Dbp("\t PowerDownVoltageFlag: %u\r\n", buf[1]); // 字节1 关机电压选择标志 0表示3.4V, 1表示2.7V
+        Dbp("\t charge_full_mV: %u\r\n", buf[2]); // 字节2 充电截止电压 0:3962mv 1:4002mv 2:4044mv 3:4086mv 4:4130mv 5:4175mv 6:4222mv 7:4270mv 8:4308mv 9:4349mv 10:4391mv
+        Dbp("\t charge_full_mA: %u ma\r\n", buf[3]); // 字节3 充电截止电流 0:2ma 1:5ma 2:7ma 3:10ma 4:15ma 5:20ma 6:25ma 7:30ma
+        Dbp("\t charge_mA: %u ma\r\n", buf[4]); // 字节3 充电电流 0:20ma 1:30ma 2:40ma 3:50ma 4:60ma 5:70ma 6:80ma 7:90ma 8:100ma 9:110ma 10:120ma 11:140ma 12:160ma 13:180ma 14:200ma 15:220ma
+        break;
+    case 0x27: // 设置用户的GPIO引脚 回复
+        Dbp("\t set gpio success\r\n");
+        break;
+    case 0x28: // 设置Z轴角度为指定值 回复
+        Dbp("\t set AngleZ success\r\n");
+        break;
+    case 0x2A: // 重启设备 回复
+        Dbp("\t will reset\r\n");
+        break;
+    case 0x2B: // 设备关机 回复
+        Dbp("\t will power off\r\n");
+        break;
+    case 0x2C: // 设置空闲关机时长 回复
+        Dbp("\t set idleToPowerOffTime success\r\n");
+        break;
+    case 0x2D: // 读取空闲关机时长 回复
+        Dbp("\t idleToPowerOffTime:%u minutes\r\n", buf[1]*10);
+        break;
+    case 0x2E: // 设置禁止蓝牙方式更改名称和充电参数标识 回复
+        Dbp("\t set FlagForDisableBleSetNameAndCahrge success\r\n");
+        break;
+    case 0x2F: // 读取禁止蓝牙方式更改名称和充电参数标识 回复
+        Dbp("\t FlagForDisableBleSetNameAndCahrge:%u\r\n", buf[1]);
+        break;
+    case 0x30: // 设置串口通信地址 回复
+        Dbp("\t set address success\r\n");
+        break;
+    case 0x31: // 读取串口通信地址 回复
+        Dbp("\t address:%u\r\n", buf[1]);
+        break;
+    case 0x33: // 设置加速计和陀螺仪量程 回复
+        Dbp("\t set accelRange and gyroRange success\r\n");
+        break;
+    case 0x34: // 读取加速计和陀螺仪量程 回复
+        Dbp("\t accelRange:%u gyroRange:%u\r\n", buf[1], buf[2]);
+        break;
+    case 0x35: // 设置陀螺仪自动校正系数 回复
+        Dbp("\t set GyroAutoVal success\r\n");
+        break;
+    case 0x36: // 读取陀螺仪自动校正系数 回复
+        Dbp("\t GyroAutoVal:%u\r\n", buf[1]);
+        break;
+    case 0x37: // 设置静止节能模式的触发时长 回复
+        Dbp("\t set EcoTime success\r\n");
+        break;
+    case 0x38: // 读取静止节能模式的触发时长 回复
+        Dbp("\t EcoTime:%u\r\n", buf[1]);
+        break;
+    case 0x40: // 设置开机后工作模式 回复
+        Dbp("\t set WorkMode success\r\n");
+        break;
+    case 0x41: // 读取开机后工作模式 回复
+        Dbp("\t WorkMode:%u\r\n", buf[1]);
+        break;		
+    case 0x42: // 设置高度为指定值 回复
+        Dbp("\t set Height success\r\n");
+        break;
+    case 0x43: // 设置自动补偿高度标识 回复
+        Dbp("\t set HeightAutoFlag success\r\n");
+        break;
+    case 0x44: // 读取自动补偿高度标识 回复
+        Dbp("\t HeightAutoFlag:%u\r\n", buf[1]);
+        break;
+    case 0x47: // 设置串口波特率 回复
+        Dbp("\t set BaudRate success\r\n");
+        break;
+    case 0x48: // 读取串口波特率 回复
+        Dbp("\t BaudRate:%u\r\n", buf[1]);
+        break;
+    case 0x50: // 是透传过来的数据 回复  把透传数据以十六进制打印出来
+        Dbp_U8_buf("DTU: ", "\r\n",
+           "%02X ",
+           &buf[1], DLen-1);
+        break;
+    case 0x51: // 设置用圈数代替欧拉角传输 回复
+        Dbp("\t set Cycle success\r\n");
+        break;
+
+    default:
+        break;
+    }
+}
+
+static void Cmd_RxUnpack_4(U8 *buf, U8 DLen)
+{
+    U16 ctl;
+    U8 L;
+    U8 tmpU8;
+    U16 tmpU16;
+    U32 tmpU32;
+    F32 tmpX, tmpY, tmpZ, tmpAbs;
+
+    switch (buf[0])
+    {
+    case 0x02: // 传感器 已睡眠 回复
+        Dbp("\t sensor off success\r\n");
+        break;
+    case 0x03: // 传感器 已唤醒 回复
+        Dbp("\t sensor on success\r\n");
+        break;
+    case 0x32: // 磁力计 开始校准 回复
+        Dbp("\t compass calibrate begin\r\n");
+        break;
+    case 0x04: // 磁力计 结束校准 回复
+        Dbp("\t compass calibrate end\r\n");
+        break;
+    case 0x05: // z轴角 已归零 回复
+        Dbp("\t z-axes to zero success\r\n");
+        break;
+    case 0x06: // 请求 xyz世界坐标系清零 回复
+        Dbp("\t WorldXYZ-axes to zero success\r\n");
+        break;
+    case 0x07: // 加速计简单校准正在进行，将在9秒后完成  回复
+        Dbp("\t acceleration calibration, Hold still for 9 seconds\r\n");
+        break;
+    case 0x08: // 恢复默认的自身坐标系Z轴指向及恢复默认的世界坐标系  回复
+        Dbp("\t axesZ WorldXYZ-axes to zero success\r\n");
+        break;
+    case 0x10: // 模块当前的属性和状态 回复
+        Dbp("\t still limit: %u\r\n", buf[1]);   // 字节1 惯导-静止状态加速度阀值 单位dm/s?
+        Dbp("\t still to zero: %u\r\n", buf[2]); // 字节2 惯导-静止归零速度(单位mm/s) 0:不归零 255:立即归零
+        Dbp("\t move to zero: %u\r\n", buf[3]);  // 字节3 惯导-动态归零速度(单位mm/s) 0:不归零
+        Dbp("\t compass: %s\r\n", ((buf[4]>>0) & 0x01)? "on":"off" );     // 字节4 bit[0]: 1=已开启磁场 0=已关闭磁场
+        Dbp("\t barometer filter: %u\r\n", (buf[4]>>1) & 0x03);           // 字节4 bit[1-2]: 气压计的滤波等级[取值0-3],数值越大越平稳但实时性越差
+        Dbp("\t IMU: %s\r\n", ((buf[4]>>3) & 0x01)? "on":"off" );         // 字节4 bit[3]: 1=传感器已开启  0=传感器已睡眠
+        Dbp("\t auto report: %s\r\n", ((buf[4]>>4) & 0x01)? "on":"off" ); // 字节4 bit[4]: 1=已开启传感器数据主动上报 0=已关闭传感器数据主动上报
+        Dbp("\t FPS: %u\r\n", buf[5]); // 字节5 数据主动上报的传输帧率[取值0-250HZ], 0表示0.5HZ
+        Dbp("\t gyro filter: %u\r\n", buf[6]);    // 字节6 陀螺仪滤波系数[取值0-2],数值越大越平稳但实时性越差
+        Dbp("\t acc filter: %u\r\n", buf[7]);     // 字节7 加速计滤波系数[取值0-4],数值越大越平稳但实时性越差
+        Dbp("\t compass filter: %u\r\n", buf[8]); // 字节8 磁力计滤波系数[取值0-9],数值越大越平稳但实时性越差
+        Dbp("\t subscribe tag: 0x%04X\r\n", (U16)(((U16)buf[10]<<8) | buf[9])); // 字节[10-9] 功能订阅标识
+        Dbp("\t charged state: %u\r\n", buf[11]); // 字节11 充电状态指示 0=未接电源 1=充电中 2=已充满
+        Dbp("\t battery level: %u%%\r\n", buf[12]); // 字节12 当前剩余电量[0-100%]
+        Dbp("\t battery voltage: %u mv\r\n", (U16)(((U16)buf[14]<<8) | buf[13])); // 字节[14-13] 电池的当前电压mv
+        Dbp("\t Mac: %02X:%02X:%02X:%02X:%02X:%02X\r\n", buf[15],buf[16],buf[17],buf[18],buf[19],buf[20]); // 字节[15-20] MAC地址
+        Dbp("\t version: %s\r\n", &buf[21]); // 字节[21-26] 固件版本 字符串
+        Dbp("\t product model: %s\r\n", &buf[27]); // 字节[26-32] 产品型号 字符串
+        break;
+    case 0x11: // 获取订阅的功能数据 回复或主动上报
+        ctl = ((U16)buf[2] << 8) | buf[1];// 字节[2-1] 为功能订阅标识，指示当前订阅了哪些功能
+        Dbp("\t subscribe tag: 0x%04X\r\n", ctl);
+        Dbp("\t ms: %lu\r\n", (U32)(((U32)buf[6]<<24) | ((U32)buf[5]<<16) | ((U32)buf[4]<<8) | ((U32)buf[3]<<0))); // 字节[6-3] 为模块开机后的时间戳(单位ms)
+
+        L =7; // 从第7字节开始根据 订阅标识tag来解析剩下的数据
+        if ((ctl & 0x0001) != 0)
+        {// 加速度xyz 去掉了重力 使用时需*scaleAccel m/s
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\taX: %ld\r\n", (S32)(tmpX*1000.0f)); // x加速度aX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\taY: %ld\r\n", (S32)(tmpY*1000.0f)); // y加速度aY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\taZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z加速度aZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\ta_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+        }
+        if ((ctl & 0x0002) != 0)
+        {// 加速度xyz 包含了重力 使用时需*scaleAccel m/s
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tAX: %ld\r\n", (S32)(tmpX*1000.0f)); // x加速度AX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tAY: %ld\r\n", (S32)(tmpY*1000.0f)); // y加速度AY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tAZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z加速度AZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\tA_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+        }
+        if ((ctl & 0x0004) != 0)
+        {// 角速度xyz 使用时需*scaleAngleSpeed °/s
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngleSpeed; L += 2; Dbp("\tGX: %ld\r\n", (S32)(tmpX*1000.0f)); // x角速度GX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngleSpeed; L += 2; Dbp("\tGY: %ld\r\n", (S32)(tmpY*1000.0f)); // y角速度GY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngleSpeed; L += 2; Dbp("\tGZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z角速度GZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\tG_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+            VelX4 = tmpX; 
+            VelY4 = tmpY; 
+            VelZ4 = tmpZ; 
+        }
+        if ((ctl & 0x0008) != 0)
+        {// 磁场xyz 使用时需*scaleMag uT
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleMag; L += 2; Dbp("\tCX: %ld\r\n", (S32)(tmpX*1000.0f)); // x磁场CX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleMag; L += 2; Dbp("\tCY: %ld\r\n", (S32)(tmpY*1000.0f)); // y磁场CY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleMag; L += 2; Dbp("\tCZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z磁场CZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\tC_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+        }
+        if ((ctl & 0x0010) != 0)
+        {// 温度 气压 高度
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleTemperature; L += 2; Dbp("\ttemperature: %ld\r\n", (S32)(tmpX*1000.0f)); // 温度
+
+            tmpU32 = (U32)(((U32)buf[L+2] << 16) | ((U32)buf[L+1] << 8) | (U32)buf[L]);
+            tmpU32 = ((tmpU32 & 0x800000) == 0x800000)? (tmpU32 | 0xff000000) : tmpU32;// 若24位数的最高位为1则该数值为负数，需转为32位负数，直接补上ff即可
+            tmpY = (S32)tmpU32 * scaleAirPressure; L += 3; Dbp("\tairPressure: %ld\r\n", (S32)(tmpY*1000.0f)); // 气压
+
+            tmpU32 = (U32)(((U32)buf[L+2] << 16) | ((U32)buf[L+1] << 8) | (U32)buf[L]);
+            tmpU32 = ((tmpU32 & 0x800000) == 0x800000)? (tmpU32 | 0xff000000) : tmpU32;// 若24位数的最高位为1则该数值为负数，需转为32位负数，直接补上ff即可
+            tmpZ = (S32)tmpU32 * scaleHeight; L += 3; Dbp("\theight: %ld\r\n", (S32)(tmpZ*1000.0f)); // 高度
+        }
+        if ((ctl & 0x0020) != 0)
+        {// 四元素 wxyz 使用时需*scaleQuat
+            tmpAbs = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleQuat; L += 2; Dbp("\tw: %ld\r\n", (S32)(tmpAbs*1000.0f));// w
+            tmpX =   (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleQuat; L += 2; Dbp("\tx: %ld\r\n", (S32)(tmpX*1000.0f)); // x
+            tmpY =   (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleQuat; L += 2; Dbp("\ty: %ld\r\n", (S32)(tmpY*1000.0f)); // y
+            tmpZ =   (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleQuat; L += 2; Dbp("\tz: %ld\r\n", (S32)(tmpZ*1000.0f)); // z
+        }
+        if ((ctl & 0x0040) != 0)
+        {// 欧拉角xyz 使用时需*scaleAngle
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngle; L += 2; Dbp("\tangleX: %ld\r\n", (S32)(tmpX*1000.0f)); // x角度
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngle; L += 2; Dbp("\tangleY: %ld\r\n", (S32)(tmpY*1000.0f)); // y角度
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAngle; L += 2; Dbp("\tangleZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z角度
+            AngleX4 = tmpX;  
+            AngleY4 = tmpY;
+            AngleZ4 = tmpZ;
+        }
+        if ((ctl & 0x0080) != 0)
+        {// xyz 空间位移 单位mm 转为 m
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) / 1000.0f; L += 2; Dbp("\toffsetX: %ld\r\n", (S32)(tmpX*1000.0f)); // x坐标
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) / 1000.0f; L += 2; Dbp("\toffsetY: %ld\r\n", (S32)(tmpY*1000.0f)); // y坐标
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) / 1000.0f; L += 2; Dbp("\toffsetZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z坐标
+        }
+        if ((ctl & 0x0100) != 0)
+        {// 活动检测数据
+            tmpU32 = (U32)(((U32)buf[L+3]<<24) | ((U32)buf[L+2]<<16) | ((U32)buf[L+1]<<8) | ((U32)buf[L]<<0)); L += 4; Dbp("\tsteps: %lu\r\n", tmpU32); // 计步数
+            tmpU8 = buf[L]; L += 1;
+            Dbp("\t walking: %s\r\n", (tmpU8 & 0x01)?  "yes" : "no"); // 是否在走路
+            Dbp("\t running: %s\r\n", (tmpU8 & 0x02)?  "yes" : "no"); // 是否在跑步
+            Dbp("\t biking: %s\r\n",  (tmpU8 & 0x04)?  "yes" : "no"); // 是否在骑车
+            Dbp("\t driving: %s\r\n", (tmpU8 & 0x08)?  "yes" : "no"); // 是否在开车
+        }
+        if ((ctl & 0x0200) != 0)
+        {// 加速度xyz 去掉了重力 使用时需*scaleAccel m/s
+            tmpX = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tasX: %ld\r\n", (S32)(tmpX*1000.0f)); // x加速度asX
+            tmpY = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tasY: %ld\r\n", (S32)(tmpY*1000.0f)); // y加速度asY
+            tmpZ = (S16)(((S16)buf[L+1]<<8) | buf[L]) * scaleAccel; L += 2; Dbp("\tasZ: %ld\r\n", (S32)(tmpZ*1000.0f)); // z加速度asZ
+            tmpAbs = sqrt(pow2(tmpX) + pow2(tmpY) + pow2(tmpZ)); Dbp("\tas_abs: %ld\r\n", (S32)(tmpAbs*1000.0f)); // 3轴合成的绝对值
+        }
+        if ((ctl & 0x0400) != 0)
+        {// ADC的值
+            tmpU16 = (U16)(((U16)buf[L+1]<<8) | ((U16)buf[L]<<0)); L += 2; Dbp("\tadc: %umv\r\n", tmpU16); // 单位mv
+        }
+        if ((ctl & 0x0800) != 0)
+        {// GPIO1的值
+            tmpU8 = buf[L]; L += 1;
+            Dbp("\t GPIO1  M:%X, N:%X\r\n", (tmpU8>>4)&0x0f, (tmpU8)&0x0f);
+        }
+        isNewData = 1; // 更新了新数据
+        break;
+    case 0x12: // 设置参数 回复
+        Dbp("\t set parameters success\r\n");
+        break;
+    case 0x13: // 惯导三维空间位置清零 回复
+        Dbp("\t clear INS position success\r\n");
+        break;
+    case 0x14: // 恢复出厂校准参数 回复
+        Dbp("\t Restore calibration parameters from factory mode success\r\n");
+        break;
+    case 0x15: // 保存当前校准参数为出厂校准参数 回复
+        Dbp("\t Save calibration parameters to factory mode success\r\n");
+        break;
+    case 0x16: // 计步数清零 回复
+        Dbp("\t clear steps success\r\n");
+        break;
+    case 0x17: // 加速计高精度校准 回复
+        if (buf[1] == 255)
+        {// 字节1 值255 表示采集完成，正在结束校准(设备需继续保持静止等待10秒钟)
+            Dbp("\t calibration success, please wait 10 seconds\r\n");
+        }
+        else if (buf[1] == 254)
+        {// 字节1 值254 表示陀螺仪自检失败
+            Dbp("\t calibration fail, gyro error\r\n");
+        }
+        else if (buf[1] == 253)
+        {// 字节1 值253 表示加速计自检失败
+            Dbp("\t calibration fail, accelerometer error\r\n");
+        }
+        else if (buf[1] == 252)
+        {// 字节1 值252 表示磁力计自检失败
+            Dbp("\t calibration fail, compass error\r\n");
+        }
+        else if (buf[1] == 251)
+        {// 字节1 值251 表示设备未在校准中
+            Dbp("\t calibration fail, Hasn't started\r\n");
+        }
+        else if (buf[1] != 0)
+        {// 值[1-250] 表示当前已采集的次数
+            Dbp("\t calibration, Points collected is %u\r\n", buf[1]);
+        }
+        else
+        {// 值0 表示模块已经在校准中
+            Dbp("\t calibration is running\r\n");
+        }
+        break;
+    case 0x18: // 已关闭主动上报 回复
+        Dbp("\t auto report off\r\n");
+        break;
+    case 0x19: // 已打开主动上报 回复
+        Dbp("\t auto report on\r\n");
+        break;
+    case 0x20: // 设置PCB安装方向矩阵 回复
+        Dbp("\t set PCB direction success\r\n");
+        break;
+    case 0x21: // 是请求 读取安装方向矩阵
+        Dbp_U8_buf("\t get PCB direction: 0x[", "]\r\n",
+                   "%02x ",
+                   &buf[1], 9); // 字节[1-9]     为加速计安装方向矩阵
+        Dbp_U8_buf("\t get PCB direction: 0x[", "]\r\n",
+                   "%02x ",
+                   &buf[10], 9); // 字节[10-18] 为磁力计安装方向矩阵
+        break;
+    case 0x22: // 是请求 设置蓝牙广播名称
+        Dbp("\t set BLE name success\r\n");
+        break;
+    case 0x23: // 读取蓝牙广播名称 回复
+        Dbp("\t get BLE name: %s\r\n", &buf[1]); // 字节[1-16] 为蓝牙广播名称字符串
+        break;
+    case 0x24: // 设置关机电压和充电参数 回复
+        Dbp("\t set PowerDownVoltage and charge parameters success\r\n");
+        break;
+    case 0x25: // 读取关机电压和充电参数 回复
+        Dbp("\t PowerDownVoltageFlag: %u\r\n", buf[1]); // 字节1 关机电压选择标志 0表示3.4V, 1表示2.7V
+        Dbp("\t charge_full_mV: %u\r\n", buf[2]); // 字节2 充电截止电压 0:3962mv 1:4002mv 2:4044mv 3:4086mv 4:4130mv 5:4175mv 6:4222mv 7:4270mv 8:4308mv 9:4349mv 10:4391mv
+        Dbp("\t charge_full_mA: %u ma\r\n", buf[3]); // 字节3 充电截止电流 0:2ma 1:5ma 2:7ma 3:10ma 4:15ma 5:20ma 6:25ma 7:30ma
+        Dbp("\t charge_mA: %u ma\r\n", buf[4]); // 字节3 充电电流 0:20ma 1:30ma 2:40ma 3:50ma 4:60ma 5:70ma 6:80ma 7:90ma 8:100ma 9:110ma 10:120ma 11:140ma 12:160ma 13:180ma 14:200ma 15:220ma
+        break;
+    case 0x27: // 设置用户的GPIO引脚 回复
+        Dbp("\t set gpio success\r\n");
+        break;
+    case 0x28: // 设置Z轴角度为指定值 回复
+        Dbp("\t set AngleZ success\r\n");
+        break;
+    case 0x2A: // 重启设备 回复
+        Dbp("\t will reset\r\n");
+        break;
+    case 0x2B: // 设备关机 回复
+        Dbp("\t will power off\r\n");
+        break;
+    case 0x2C: // 设置空闲关机时长 回复
+        Dbp("\t set idleToPowerOffTime success\r\n");
+        break;
+    case 0x2D: // 读取空闲关机时长 回复
+        Dbp("\t idleToPowerOffTime:%u minutes\r\n", buf[1]*10);
+        break;
+    case 0x2E: // 设置禁止蓝牙方式更改名称和充电参数标识 回复
+        Dbp("\t set FlagForDisableBleSetNameAndCahrge success\r\n");
+        break;
+    case 0x2F: // 读取禁止蓝牙方式更改名称和充电参数标识 回复
+        Dbp("\t FlagForDisableBleSetNameAndCahrge:%u\r\n", buf[1]);
+        break;
+    case 0x30: // 设置串口通信地址 回复
+        Dbp("\t set address success\r\n");
+        break;
+    case 0x31: // 读取串口通信地址 回复
+        Dbp("\t address:%u\r\n", buf[1]);
+        break;
+    case 0x33: // 设置加速计和陀螺仪量程 回复
+        Dbp("\t set accelRange and gyroRange success\r\n");
+        break;
+    case 0x34: // 读取加速计和陀螺仪量程 回复
+        Dbp("\t accelRange:%u gyroRange:%u\r\n", buf[1], buf[2]);
+        break;
+    case 0x35: // 设置陀螺仪自动校正系数 回复
+        Dbp("\t set GyroAutoVal success\r\n");
+        break;
+    case 0x36: // 读取陀螺仪自动校正系数 回复
+        Dbp("\t GyroAutoVal:%u\r\n", buf[1]);
+        break;
+    case 0x37: // 设置静止节能模式的触发时长 回复
+        Dbp("\t set EcoTime success\r\n");
+        break;
+    case 0x38: // 读取静止节能模式的触发时长 回复
+        Dbp("\t EcoTime:%u\r\n", buf[1]);
+        break;
+    case 0x40: // 设置开机后工作模式 回复
+        Dbp("\t set WorkMode success\r\n");
+        break;
+    case 0x41: // 读取开机后工作模式 回复
+        Dbp("\t WorkMode:%u\r\n", buf[1]);
+        break;		
+    case 0x42: // 设置高度为指定值 回复
+        Dbp("\t set Height success\r\n");
+        break;
+    case 0x43: // 设置自动补偿高度标识 回复
+        Dbp("\t set HeightAutoFlag success\r\n");
+        break;
+    case 0x44: // 读取自动补偿高度标识 回复
+        Dbp("\t HeightAutoFlag:%u\r\n", buf[1]);
+        break;
+    case 0x47: // 设置串口波特率 回复
+        Dbp("\t set BaudRate success\r\n");
+        break;
+    case 0x48: // 读取串口波特率 回复
+        Dbp("\t BaudRate:%u\r\n", buf[1]);
+        break;
+    case 0x50: // 是透传过来的数据 回复  把透传数据以十六进制打印出来
+        Dbp_U8_buf("DTU: ", "\r\n",
+           "%02X ",
+           &buf[1], DLen-1);
+        break;
+    case 0x51: // 设置用圈数代替欧拉角传输 回复
+        Dbp("\t set Cycle success\r\n");
+        break;
+
+    default:
+        break;
+    }
+}
 /**
  * 发送数据  需要用户实现里面的串口发送数据方法-------------------------------------
  * @param pBuf 要发送的内容指针
@@ -1999,6 +3841,38 @@ static void Cmd_Write_Right(U8 *pBuf, int Len)
                pBuf, Len);
 }
 
+static void Cmd_Write_1(U8 *pBuf, int Len)
+{
+    SerialImuP1.write(pBuf, Len); // 通过该函数发送通信数据流
+
+    Dbp_U8_buf("tx: ", "\r\n",
+               "%02X ",
+               pBuf, Len);
+}
+static void Cmd_Write_2(U8 *pBuf, int Len)
+{
+    SerialImuP2.write(pBuf, Len); // 通过该函数发送通信数据流
+
+    Dbp_U8_buf("tx: ", "\r\n",
+               "%02X ",
+               pBuf, Len);
+}
+static void Cmd_Write_3(U8 *pBuf, int Len)
+{
+    SerialImuP3.write(pBuf, Len); // 通过该函数发送通信数据流
+
+    Dbp_U8_buf("tx: ", "\r\n",
+               "%02X ",
+               pBuf, Len);
+}
+static void Cmd_Write_4(U8 *pBuf, int Len)
+{
+    SerialImuP4.write(pBuf, Len); // 通过该函数发送通信数据流
+
+    Dbp_U8_buf("tx: ", "\r\n",
+               "%02X ",
+               pBuf, Len);
+}
 // ======================================测试示例==============================================
 U8 im948_ctl = 0; // 用户调试口发来的1字节操作指令 调试口收到的数据赋值给im948_ctl 主循环里调用 im948_test() 进行演示
 void im948_test(void)

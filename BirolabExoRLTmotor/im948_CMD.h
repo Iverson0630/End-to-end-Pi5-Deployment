@@ -32,7 +32,10 @@ typedef float                  F32;
 
 #define SerialImuLeft  Serial7    // 定义imu连接哪个串口
 #define SerialImuRight  Serial6   // 定义imu连接哪个串口
-
+#define SerialImuP1  Serial1
+#define SerialImuP2  Serial2
+#define SerialImuP3  Serial3
+#define SerialImuP4  Serial4
 // ===============================调试信息开关====================================
 // #define __Debug  // 使用调试口输出调试信息,不使用调试信息屏蔽本句即可
 #ifdef __Debug
@@ -54,11 +57,21 @@ typedef float                  F32;
 extern U8 Cmd_GetPkt(U8 byte);      
 extern U8 Cmd_GetPkt_Left(U8 byte);       
 extern U8 Cmd_GetPkt_Right(U8 byte);         
-
+extern U8 Cmd_GetPkt_1(U8 byte);      
+extern U8 Cmd_GetPkt_2(U8 byte);      
+extern U8 Cmd_GetPkt_3(U8 byte);      
+extern U8 Cmd_GetPkt_4(U8 byte);      
 // 当接收到有效数据包，会回调进入到 Cmd_RxUnpack(U8 *buf, U8 DLen) 函数里，用户在该函数里处理数据即可，如把欧拉角赋值给下一行的全局变量
 extern F32 AngleX,AngleY,AngleZ;    // 从Cmd_RxUnpack中获取到的欧拉角数据更新到全局变量以便用户自己的业务逻辑使用, 若还需要其它数据，可参考进行增加即可
 extern F32 AngleXLeft,AngleYLeft,AngleZLeft,AngleXRight,AngleYRight,AngleZRight;     
+extern F32 AngleX1,AngleY1,AngleZ1;    // 从Cmd_RxUnpack中获取到的欧拉角数据更新到全局变量以便用户自己的业务逻辑使用, 若还需要其它数据，可参考进行增加即可
+extern F32 AngleX2,AngleY2,AngleZ2;    // 从Cmd_RxUnpack中获取到的欧拉角数据更新到全局变量以便用户自己的业务逻辑使用, 若还需要其它数据，可参考进行增加即可
+extern F32 AngleX3,AngleY3,AngleZ3;    // 从Cmd_RxUnpack中获取到的欧拉角数据更新到全局变量以便用户自己的业务逻辑使用, 若还需要其它数据，可参考进行增加即可
+extern F32 AngleX4,AngleY4,AngleZ4;    // 从Cmd_RxUnpack中获取到的欧拉角数据更新到全局变量以便用户自己的业务逻辑使用, 若还需要其它数据，可参考进行增加即可
+
 extern F32 VelXLeft,VelYLeft,VelZLeft,VelXRight,VelYRight,VelZRight;     
+extern F32 VelX1,VelY1,VelZ1,VelX2,VelY2,VelZ2;     
+extern F32 VelX3,VelY3,VelZ3,VelX4,VelY4,VelZ4;     
 
 extern U8 isNewData;// 1=更新了新的数据到全局变量里了
 
@@ -71,10 +84,20 @@ extern void Cmd_02(void);// 睡眠传感器
 extern void Cmd_03(void);// 唤醒传感器
 extern void Cmd_03_Left(void);// 唤醒传感器
 extern void Cmd_03_Right(void);// 唤醒传感器
+extern void Cmd_03_1(void);// 唤醒传感器
+extern void Cmd_03_2(void);// 唤醒传感器
+extern void Cmd_03_3(void);// 唤醒传感器
+extern void Cmd_03_4(void);// 唤醒传感器
+
+
 extern void Cmd_18(void);// 关闭数据主动上报
 extern void Cmd_19(void);// 开启数据主动上报
 extern void Cmd_19_Left(void); // 开启数据主动上报
 extern void Cmd_19_Right(void);// 开启数据主动上报
+extern void Cmd_19_1(void); // 开启数据主动上报
+extern void Cmd_19_2(void);// 开启数据主动上报
+extern void Cmd_19_3(void); // 开启数据主动上报
+extern void Cmd_19_4(void);// 开启数据主动上报
 extern void Cmd_11(void);// 获取1次订阅的功能数据
 extern void Cmd_10(void);// 获取设备属性和状态
 /**
@@ -93,6 +116,11 @@ extern void Cmd_10(void);// 获取设备属性和状态
 extern void Cmd_12(U8 accStill, U8 stillToZero, U8 moveToZero,  U8 isCompassOn, U8 barometerFilter, U8 reportHz, U8 gyroFilter, U8 accFilter, U8 compassFilter, U16 Cmd_ReportTag);
 extern void Cmd_12_Left(U8 accStill, U8 stillToZero, U8 moveToZero,  U8 isCompassOn, U8 barometerFilter, U8 reportHz, U8 gyroFilter, U8 accFilter, U8 compassFilter, U16 Cmd_ReportTag);
 extern void Cmd_12_Right(U8 accStill, U8 stillToZero, U8 moveToZero,  U8 isCompassOn, U8 barometerFilter, U8 reportHz, U8 gyroFilter, U8 accFilter, U8 compassFilter, U16 Cmd_ReportTag);
+extern void Cmd_12_1(U8 accStill, U8 stillToZero, U8 moveToZero,  U8 isCompassOn, U8 barometerFilter, U8 reportHz, U8 gyroFilter, U8 accFilter, U8 compassFilter, U16 Cmd_ReportTag);
+extern void Cmd_12_2(U8 accStill, U8 stillToZero, U8 moveToZero,  U8 isCompassOn, U8 barometerFilter, U8 reportHz, U8 gyroFilter, U8 accFilter, U8 compassFilter, U16 Cmd_ReportTag);
+extern void Cmd_12_3(U8 accStill, U8 stillToZero, U8 moveToZero,  U8 isCompassOn, U8 barometerFilter, U8 reportHz, U8 gyroFilter, U8 accFilter, U8 compassFilter, U16 Cmd_ReportTag);
+extern void Cmd_12_4(U8 accStill, U8 stillToZero, U8 moveToZero,  U8 isCompassOn, U8 barometerFilter, U8 reportHz, U8 gyroFilter, U8 accFilter, U8 compassFilter, U16 Cmd_ReportTag);
+
 extern void Cmd_13(void);// 惯导三维空间位置清零
 extern void Cmd_16(void);// 计步数清零
 extern void Cmd_14(void);// 恢复出厂校准参数
