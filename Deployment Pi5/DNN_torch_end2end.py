@@ -22,6 +22,7 @@ def load_nn(
             b=input_b, a=input_a
         )        
         hip_nn.load_saved_policy(torch.load(saved_policy_path, map_location=torch.device('cpu')))     
+        hip_nn.eval() 
         print('load parameters successfully!!')
     else: 
         hip_nn = DNN(
