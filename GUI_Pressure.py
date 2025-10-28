@@ -125,12 +125,22 @@ class MainWindow(QWidget):
         self.pressure_plot.setLabel('bottom', 'Time (s)')
         self.pressure_plot.setLabel('left', 'Pressure (g)')
         self.pressure_plot.showGrid(x=True, y=True)
+        self.legend = self.pressure_plot.addLegend(offset=(10, 10))
+      
 
         self.pressure_lines = []
         for i in range(2):
             color = pg.intColor(i, hues=2)
-            line = self.pressure_plot.plot(pen=pg.mkPen(color, width=1))
+            name = 'toe pressure' if i==0 else 'heel pressure'
+            line = self.pressure_plot.plot(pen=pg.mkPen(color, width=2),name=name)
             self.pressure_lines.append(line)
+
+        font = QFont()
+        font.setPointSize(15)   # adjust to desired size
+        font.setBold(True)
+
+        for sample, label in self.legend.items:
+            label.setFont(font)  # works! label is a QGraphicsTextItem
 
         self.plot_layout.addWidget(self.pressure_plot, 1)
 
@@ -165,7 +175,7 @@ class MainWindow(QWidget):
         if len(payload)!=36: return
         data = struct.unpack('>' + 'h'*(36//2), payload)  
         pressures = [int(x) for x in data]  # 单位：g
-        print(f"pressure:{pressures}")
+        
         #exit()
         t = time.time()
         self.t_buffer = self.t_buffer[1:] + [t - self.t0]
