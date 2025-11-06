@@ -166,12 +166,12 @@ class MainWindow(QWidget):
     def _read_serial(self):
    
         # Need 32‑byte packet: A5 5A len(32) + 29 data
-     
+
         if self.ser.read(1)!=b'\xAA': return
-        if self.ser.read(1)!=b'\x01': return
+        if self.ser.read(1)!=b'\x02': return
   
         payload = self.ser.read(36)
-        #print(f"pressure:{payload}")
+
         if len(payload)!=36: return
         data = struct.unpack('>' + 'h'*(36//2), payload)  
         pressures = [int(x) for x in data]  # 单位：g
